@@ -1,0 +1,16 @@
+---
+services:
+  borildenstudio:
+    image: nginx:1-alpine
+    container_name: borilden-studio
+    restart: unless-stopped
+
+    volumes:
+      - ./html/:/usr/share/nginx/html
+
+    networks:
+      - caddy_net
+
+networks:
+  caddy_net:
+    external: true
