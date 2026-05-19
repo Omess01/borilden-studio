@@ -2,24 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Borilden Studio Website</title>
+  <title>Børilden Studio | Development & Infrastructure</title>
+  <meta name="description" content="Portfolio and digital studio for Ben Børilden. Infrastructure, development and creative technology projects.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/assets/images/logo.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Børilden Studio">
+  <meta property="og:description" content="Development, infrastructure and creative technology projects.">
+  <meta property="og:url" content="https://borildenstudio.no">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://borildenstudio.no/assets/images/logo.png">
+
   <style>
-    body {
-      font-family: sans-serif;
-      display: flex;
-      height: 100vh;
-      justify-content: center;
-      align-items: center;
-      background-color: #f0f0f0;
-      margin: 0;
-    }
-    h1 {
-      color: #333;
-    }
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin: 0; background: #fafafa; color: #111; }
+    header { background: #fff; border-bottom: 1px solid #e6e6e6; }
+    .container { max-width: 960px; margin: 0 auto; padding: 1rem; }
+    nav { display:flex; gap:1rem; font-size:0.95rem; }
+    h1 { margin: 0; font-size: 1.5rem; }
+    main { padding: 2rem 0; }
+    section { margin-bottom: 2rem; }
+    .grid { display:grid; grid-template-columns:1fr; gap:1rem; }
+    @media(min-width:700px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+    footer { padding: 1rem 0; color:#666; font-size:0.9rem; }
+    a { color: #065fd4; text-decoration: none; }
   </style>
 </head>
 <body>
-  <h1>Hello, World! Welcome to Børilden Studio! This is my first website</h1>
+  <header>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h1>Børilden Studio</h1>
+      </div>
+      <nav aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <p>I'm Ben Børilden — I work on infrastructure, development and creative technology projects. This site showcases consulting work, hobby projects and infrastructure experiments.</p>
+    </section>
+
+    <section id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      <div class="grid">
+        <article>
+          <h3>Project Name</h3>
+          <p>Short description of a project or case study. Add links to repositories, demos and screenshots here.</p>
+        </article>
+        <article>
+          <h3>Infrastructure</h3>
+          <p>Notes about deployment, Docker, Caddy reverse proxy, and architecture decisions.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="portfolio" aria-labelledby="portfolio-heading">
+      <h2 id="portfolio-heading">Portfolio</h2>
+      <p>Work samples, links to live sites and images. Use semantic markup and structured data for better SEO.</p>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact</h2>
+      <p>Contact: <a href="https://github.com/borilden">GitHub</a> • <a href="https://www.linkedin.com/">LinkedIn</a> • Email: <a href="mailto:hello@borildenstudio.no">hello@borildenstudio.no</a></p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>© Børilden Studio — Development & Infrastructure</p>
+  </footer>
 </body>
 </html>
