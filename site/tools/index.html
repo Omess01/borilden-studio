@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tools</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* Tools page specific styles */
+        .tools-page {
+            padding: 60px 0;
+        }
+
+        .tools-page .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 16px;
+            border: 1px solid #09C3E7;
+            background: #fff;
+            color: #333;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            outline: none;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            box-shadow: 0 0 0 2px rgba(9, 195, 231, 0.3);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .tool-card {
+            background: #f2f2f1;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            border-bottom-color: #09C3E7;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .tool-card-preview {
+            width: 100%;
+            height: 170px;
+            background: #002037;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .tool-card-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .tool-card-body {
+            padding: 20px 24px 8px;
+        }
+
+        .tool-card-body h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #09C3E7;
+            text-transform: uppercase;
+        }
+
+        .tool-card-body p {
+            font-size: 14px;
+            line-height: 22px;
+            color: #696969;
+        }
+
+        .tool-card-footer {
+            padding: 12px 24px 20px;
+        }
+
+        .tool-card-footer a {
+            color: #09C3E7;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card-footer a:hover {
+            color: #007fa3;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #888;
+            grid-column: 1 / -1;
+            padding: 3rem 0;
+            font-size: 16px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #09C3E7;
+            font-size: 15px;
+            margin-bottom: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #007fa3;
+        }
+
+        /* Navbar */
+        .navbar-default {
+            background: #002037;
+            border: 0;
+            border-radius: 0;
+        }
+
+        .navbar-default .navbar-brand {
+            color: #fff;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 40px;
+            padding-top: 25px;
+        }
+
+        .navbar-default .navbar-brand span {
+            color: #09C3E7;
+        }
+
+        .navbar-default .navbar-nav > li > a {
+            color: #fff;
+            font-size: 18px;
+            padding: 30px 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .navbar-default .navbar-nav > li > a:hover {
+            color: #09C3E7;
+        }
+
+        .navbar-default .navbar-nav > .active > a,
+        .navbar-default .navbar-nav > .active > a:focus,
+        .navbar-default .navbar-nav > .active > a:hover {
+            color: #09C3E7;
+            background-color: transparent;
+        }
+
+        /* Footer */
+        #section-footer {
+            background: #002037;
+            padding: 40px 0;
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top section-menu" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../assets/images/logo.png" alt="Logo" height="40" onerror="this.style.display='none'">
+                    Your<span>Site</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="active"><a href="#">Tools</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tools Section -->
+    <div style="padding-top: 90px;">
+        <div class="tools-page">
+            <div class="container">
+
+                <a href="../index.html" class="back-link">← Back to Home</a>
+
+                <div class="section-heading text-center">
+                    <h2 class="heading-title">Tools</h2>
+                    <p>A collection of handy tools built for you</p>
+                </div>
+
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search tools..." />
+                </div>
+
+                <div class="tools-grid" id="toolsGrid">
+
+                    <!-- QR Code Generator -->
+                    <div class="tool-card" data-name="qr code generator">
+                        <div class="tool-card-preview">📱</div>
+                        <div class="tool-card-body">
+                            <h3>QR Code Generator</h3>
+                            <p>Generate custom QR codes for any URL instantly. Choose size and colors.</p>
+                        </div>
+                        <div class="tool-card-footer">
+                            <a href="./qr-code-generator/">Try it out →</a>
+                        </div>
+                    </div>
+
+                    <!-- Add more tool cards here, copy the block above -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="section-footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Your Site. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.tool-card');
+        const grid = document.getElementById('toolsGrid');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            let visible = 0;
+
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name') || '';
+                const matches = name.includes(query);
+                card.style.display = matches ? '' : 'none';
+                if (matches) visible++;
+            });
+
+            let noResults = document.getElementById('noResults');
+            if (visible === 0) {
+                if (!noResults) {
+                    noResults = document.createElement('p');
+                    noResults.id = 'noResults';
+                    noResults.className = 'no-results';
+                    noResults.textContent = 'No tools found.';
+                    grid.appendChild(noResults);
+                }
+            } else {
+                if (noResults) noResults.remove();
+            }
+        });
+    </script>
+
+</body>
+</html>
