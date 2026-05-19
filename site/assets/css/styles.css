@@ -23,7 +23,13 @@
     --radius: 18px;
     --transition: all 0.25s ease;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+    --container-width: 1100px;
 }
+
+/* =========================================
+   Theme Mapping
+========================================= */
 
 [data-theme="dark"] {
     --bg: var(--bg-dark);
@@ -39,7 +45,9 @@
     --hover: var(--hover-light);
 }
 
-/* Reset */
+/* =========================================
+   Reset
+========================================= */
 
 * {
     box-sizing: border-box;
@@ -47,7 +55,9 @@
     padding: 0;
 }
 
-/* Base */
+/* =========================================
+   Base
+========================================= */
 
 html {
     scroll-behavior: smooth;
@@ -56,40 +66,111 @@ html {
 body {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+
     background-color: var(--bg);
     color: var(--text);
+
     min-height: 100vh;
-    padding: 2rem;
+
     transition: var(--transition);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    line-height: 1.7;
 }
 
-/* Main Container */
+/* =========================================
+   Layout
+========================================= */
 
 .container {
     width: 100%;
-    max-width: 520px;
+    max-width: var(--container-width);
 
-    background: var(--card-bg);
-    border-radius: var(--radius);
+    margin: 0 auto;
 
-    padding: 2.5rem 2rem;
-
-    box-shadow: var(--shadow);
-
-    text-align: center;
-
-    transition: var(--transition);
-
-    border: 1px solid rgba(72, 191, 184, 0.12);
-
-    backdrop-filter: blur(10px);
+    padding: 2rem;
 }
 
-/* Avatar */
+main {
+    padding: 2rem 0;
+}
+
+section {
+    margin-bottom: 4rem;
+}
+
+/* =========================================
+   Typography
+========================================= */
+
+h1 {
+    font-size: 2.8rem;
+    font-weight: 500;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    margin-bottom: 1rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    color: var(--accent);
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+
+    margin-bottom: 0.75rem;
+}
+
+p {
+    opacity: 0.85;
+}
+
+a {
+    color: var(--accent);
+
+    text-decoration: none;
+
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--primary);
+}
+
+/* =========================================
+   Header / Navigation
+========================================= */
+
+header {
+    margin-bottom: 3rem;
+}
+
+.main-nav {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 1rem;
+
+    margin-top: 1rem;
+}
+
+.main-nav a {
+    font-weight: 400;
+}
+
+/* =========================================
+   Hero / Bio
+========================================= */
 
 .avatar {
     width: 120px;
@@ -110,46 +191,39 @@ body {
     transform: scale(1.03);
 }
 
-/* Typography */
-
-h1 {
-    font-size: 2.4rem;
-    font-weight: 500;
-
-    margin-bottom: 0.5rem;
-
-    color: var(--text);
-
-    letter-spacing: -1px;
-}
-
-h2 {
-    font-size: 1rem;
-    font-weight: 500;
-
-    margin-bottom: 1rem;
-
-    color: var(--accent);
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
-}
-
 .bio {
     font-size: 1rem;
-    line-height: 1.7;
 
-    color: rgba(60, 53, 64, 0.75);
+    opacity: 0.7;
 
     margin-bottom: 2rem;
 }
 
-[data-theme="dark"] .bio {
-    color: rgba(245, 244, 241, 0.75);
+/* =========================================
+   Generic Cards
+========================================= */
+
+.card {
+    background: var(--card-bg);
+
+    border-radius: var(--radius);
+
+    border: 1px solid rgba(72, 191, 184, 0.08);
+
+    box-shadow: var(--shadow);
+
+    transition: var(--transition);
 }
 
-/* Link Sections */
+.card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+}
+
+/* =========================================
+   Links / Buttons
+========================================= */
 
 .links {
     display: flex;
@@ -160,8 +234,6 @@ h2 {
     margin-bottom: 2rem;
 }
 
-/* Link Cards */
-
 .link {
     background: var(--hover);
 
@@ -169,17 +241,15 @@ h2 {
 
     padding: 1rem 1.2rem;
 
-    text-decoration: none;
-
     color: var(--text);
 
     font-weight: 400;
 
-    transition: var(--transition);
-
     border: 1px solid rgba(72, 191, 184, 0.08);
 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+
+    transition: var(--transition);
 }
 
 .link:hover {
@@ -192,7 +262,9 @@ h2 {
     box-shadow: 0 10px 24px rgba(51, 124, 97, 0.25);
 }
 
-/* Social Icons */
+/* =========================================
+   Social Icons
+========================================= */
 
 .social-icons {
     display: flex;
@@ -238,35 +310,9 @@ h2 {
     fill: white;
 }
 
-/* Footer */
-
-.footer {
-    margin-top: 2rem;
-
-    font-size: 0.85rem;
-
-    opacity: 0.7;
-}
-
-.credit {
-    margin-top: 0.7rem;
-
-    font-size: 0.75rem;
-
-    opacity: 0.5;
-}
-
-.credit a {
-    color: var(--accent);
-
-    text-decoration: none;
-}
-
-.credit a:hover {
-    text-decoration: underline;
-}
-
-/* Theme Toggle */
+/* =========================================
+   Theme Toggle
+========================================= */
 
 .theme-toggle {
     position: fixed;
@@ -274,24 +320,24 @@ h2 {
     top: 1.25rem;
     right: 1.25rem;
 
-    background: var(--card-bg);
-
-    border: 1px solid rgba(72, 191, 184, 0.12);
-
-    color: var(--text);
-
     width: 48px;
     height: 48px;
 
     border-radius: 50%;
 
+    border: 1px solid rgba(72, 191, 184, 0.12);
+
+    background: var(--card-bg);
+
+    color: var(--text);
+
     cursor: pointer;
 
     font-size: 1rem;
 
-    transition: var(--transition);
-
     box-shadow: var(--shadow);
+
+    transition: var(--transition);
 
     z-index: 1000;
 }
@@ -304,27 +350,200 @@ h2 {
     color: white;
 }
 
-/* Responsive */
+/* =========================================
+   Footer
+========================================= */
 
-@media (max-width: 600px) {
-    body {
-        padding: 1rem;
-    }
+.footer {
+    margin-top: 4rem;
 
+    text-align: center;
+
+    font-size: 0.85rem;
+
+    opacity: 0.65;
+}
+
+.credit {
+    margin-top: 0.7rem;
+
+    font-size: 0.75rem;
+
+    opacity: 0.5;
+}
+
+/* =========================================
+   Back Link
+========================================= */
+
+.back-link {
+    display: inline-block;
+
+    margin-bottom: 2rem;
+
+    color: var(--accent);
+
+    font-weight: 400;
+}
+
+/* =========================================
+   Section Heading
+========================================= */
+
+.section-heading {
+    text-align: center;
+
+    margin-bottom: 3rem;
+}
+
+/* =========================================
+   Search Bar
+========================================= */
+
+.search-bar {
+    margin-bottom: 2rem;
+}
+
+.search-bar input {
+    width: 100%;
+
+    padding: 1rem;
+
+    border-radius: var(--radius);
+
+    border: 1px solid rgba(72, 191, 184, 0.15);
+
+    background: var(--card-bg);
+
+    color: var(--text);
+
+    font-family: 'Roboto', sans-serif;
+
+    transition: var(--transition);
+}
+
+.search-bar input:focus {
+    outline: none;
+
+    border-color: var(--accent);
+
+    box-shadow: 0 0 0 3px rgba(72, 191, 184, 0.15);
+}
+
+/* =========================================
+   Tool Grid
+========================================= */
+
+.tools-grid {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 1.5rem;
+}
+
+/* =========================================
+   Tool Cards
+========================================= */
+
+.tool-card {
+    background: var(--card-bg);
+
+    border-radius: var(--radius);
+
+    overflow: hidden;
+
+    border: 1px solid rgba(72, 191, 184, 0.08);
+
+    box-shadow: var(--shadow);
+
+    transition: var(--transition);
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+}
+
+.tool-card-preview {
+    height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 3rem;
+
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
+
+    color: white;
+}
+
+.tool-card-preview img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.tool-card-body {
+    padding: 1.5rem;
+}
+
+.tool-card-body h3 {
+    margin-bottom: 0.75rem;
+
+    color: var(--text);
+}
+
+.tool-card-body p {
+    opacity: 0.75;
+}
+
+.tool-card-footer {
+    padding: 0 1.5rem 1.5rem;
+}
+
+.tool-card-footer a {
+    font-weight: 500;
+}
+
+/* =========================================
+   Empty States
+========================================= */
+
+.no-results {
+    text-align: center;
+
+    opacity: 0.6;
+
+    padding: 2rem;
+}
+
+/* =========================================
+   Responsive
+========================================= */
+
+@media (max-width: 700px) {
     .container {
-        padding: 2rem 1.25rem;
+        padding: 1.25rem;
     }
 
     h1 {
         font-size: 2rem;
     }
 
+    .main-nav {
+        gap: 0.75rem;
+    }
+
     .avatar {
         width: 100px;
         height: 100px;
-    }
-
-    .link {
-        padding: 0.9rem 1rem;
     }
 }
