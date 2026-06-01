@@ -21,6 +21,10 @@
         type="image/png"
         href="./assets/images/logo.png">
 
+    <link
+        rel="canonical"
+        href="https://borildenstudio.no/">
+
     <!-- Open Graph -->
 
     <meta
@@ -33,11 +37,15 @@
 
     <meta
         property="og:url"
-        content="https://borildenstudio.no">
+        content="https://borildenstudio.no/">
 
     <meta
         property="og:type"
         content="website">
+
+    <meta
+        property="og:site_name"
+        content="Børilden Studio">
 
     <meta
         property="og:image"
@@ -72,14 +80,34 @@
             margin-bottom: 4rem;
         }
 
+        .home-logo {
+            display: inline-block;
+
+            margin-bottom: 1.5rem;
+        }
+
+        .brand-logo {
+            width: min(280px, 72vw);
+            height: auto;
+
+            margin-bottom: 0;
+
+            border: 0;
+            border-radius: 0;
+
+            object-fit: contain;
+
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+        }
+
         .hero h1 {
-            font-size: clamp(3rem, 7vw, 5rem);
+            font-size: clamp(2.5rem, 7vw, 5rem);
 
             margin-bottom: 1rem;
 
             line-height: 1;
 
-            letter-spacing: -2px;
+            letter-spacing: 0;
         }
 
         .hero p {
@@ -130,8 +158,6 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 
             gap: 1.5rem;
-
-            margin-bottom: 4rem;
         }
 
         .section-card {
@@ -156,8 +182,14 @@
             box-shadow: 0 18px 36px rgba(0,0,0,0.16);
         }
 
-        .section-card h2 {
+        .section-card h3 {
             margin-bottom: 1rem;
+
+            color: var(--accent-text);
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
         }
 
         .section-card p {
@@ -226,24 +258,32 @@
 <body>
 
     <button
+        type="button"
         class="theme-toggle"
         id="toggleTheme"
-        title="Toggle dark/light mode"
-        aria-label="Toggle dark/light mode">
+        title="Switch to light mode"
+        aria-label="Switch to light mode">
         🌓
     </button>
 
-    <div class="container landing">
+    <main class="container landing">
 
         <!-- Hero -->
 
         <section class="hero">
-			<a href="/" class="home-logo">
-    			<img
-        			src="/assets/images/logo.png"
-        			alt="Børilden Studio Logo"
-        			class="avatar">
-			</a>
+            <a href="./index.html" class="home-logo">
+                <img
+                    id="brandLogo"
+                    src="./assets/images/logo_white_text.png"
+                    data-dark-src="./assets/images/logo_white_text.png"
+                    data-light-src="./assets/images/logo.png"
+                    alt="Børilden Studio"
+                    class="avatar brand-logo"
+                    width="280"
+                    height="280"
+                    decoding="async">
+            </a>
+
             <h1>
                 Børilden Studio
             </h1>
@@ -255,7 +295,7 @@
             </p>
 
             <nav class="hero-tags" aria-label="Main navigation">
-				<a href="./about/index.html" class="hero-tag">
+                <a href="./about/index.html" class="hero-tag">
                     Who I Am
                 </a>
 
@@ -281,49 +321,57 @@
 
         <!-- Focus Areas -->
 
-        <section class="section-grid">
+        <section aria-labelledby="focus-heading">
 
-            <article class="section-card">
+            <h2 id="focus-heading">
+                Focus Areas
+            </h2>
 
-                <h2>
-                    Infrastructure
-                </h2>
+            <div class="section-grid">
 
-                <p>
-                    Self-hosted services, Docker deployments, reverse proxies,
-                    networking, automation and infrastructure experiments built
-                    on TrueNAS, Caddy and Linux-based systems.
-                </p>
+                <article class="section-card">
 
-            </article>
+                    <h3>
+                        Infrastructure
+                    </h3>
 
-            <article class="section-card">
+                    <p>
+                        Self-hosted services, Docker deployments, reverse proxies,
+                        networking, automation and infrastructure experiments built
+                        on TrueNAS, Caddy and Linux-based systems.
+                    </p>
 
-                <h2>
-                    Development
-                </h2>
+                </article>
 
-                <p>
-                    Exploring backend APIs, FastAPI, Node.js,
-                    PostgreSQL and software architecture while learning modern
-                    full-stack development practices.
-                </p>
+                <article class="section-card">
 
-            </article>
+                    <h3>
+                        Development
+                    </h3>
 
-            <article class="section-card">
+                    <p>
+                        Exploring backend APIs, FastAPI, Node.js,
+                        PostgreSQL and software architecture while learning modern
+                        full-stack development practices.
+                    </p>
 
-                <h2>
-                    Creative Technology
-                </h2>
+                </article>
 
-                <p>
-                    Combining technical systems, photography, gaming,
-                    design and experimentation into one evolving
-                    digital studio and personal portfolio.
-                </p>
+                <article class="section-card">
 
-            </article>
+                    <h3>
+                        Creative Technology
+                    </h3>
+
+                    <p>
+                        Combining technical systems, photography, gaming,
+                        design and experimentation into one evolving
+                        digital studio and personal portfolio.
+                    </p>
+
+                </article>
+
+            </div>
 
         </section>
 
@@ -361,9 +409,9 @@
 
         <!-- Featured Projects -->
 
-        <section>
+        <section aria-labelledby="projects-heading">
 
-            <h2>
+            <h2 id="projects-heading">
                 Featured Projects
             </h2>
 
@@ -371,9 +419,9 @@
 
                 <article class="section-card">
 
-                    <h2>
+                    <h3>
                         TrueNAS Homelab
-                    </h2>
+                    </h3>
 
                     <p>
                         A self-hosted infrastructure stack powered by Docker,
@@ -384,9 +432,9 @@
 
                 <article class="section-card">
 
-                    <h2>
+                    <h3>
                         Photography Portfolio
-                    </h2>
+                    </h3>
 
                     <p>
                         A future curated collection of photography work
@@ -397,9 +445,9 @@
 
                 <article class="section-card">
 
-                    <h2>
+                    <h3>
                         Backend APIs
-                    </h2>
+                    </h3>
 
                     <p>
                         Experimental APIs and backend systems exploring
@@ -410,9 +458,9 @@
 
                 <article class="section-card">
 
-                    <h2>
+                    <h3>
                         Calendar Platform
-                    </h2>
+                    </h3>
 
                     <p>
                         Long-term project idea exploring integration
@@ -437,19 +485,22 @@
 
                 <a
                     href="https://github.com/Omess01"
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
                     GitHub
                 </a>
 
                 <a
                     href="https://www.linkedin.com/in/ben-borilden/"
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
                     LinkedIn
                 </a>
 
                 <a
                     href="https://www.instagram.com/benborilden/"
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
                     Instagram
                 </a>
 
@@ -460,7 +511,8 @@
 
                 <a
                     href="https://tuntreet.org/forsiden/2025/3/21/to-coca-cola-med-ben-brildennbspnbsp"
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
                     Interview
                 </a>
 
@@ -482,7 +534,7 @@
 
         </footer>
 
-    </div>
+    </main>
 
     <script>
 
@@ -492,20 +544,81 @@
         const toggleTheme =
             document.getElementById('toggleTheme');
 
+        const brandLogo =
+            document.getElementById('brandLogo');
+
+        const root =
+            document.documentElement;
+
+        const getStoredTheme = () => {
+            try {
+                return localStorage.getItem('theme');
+            } catch {
+                return null;
+            }
+        };
+
+        const storeTheme = (theme) => {
+            try {
+                localStorage.setItem('theme', theme);
+            } catch {
+                // Keep the toggle working when localStorage is unavailable.
+            }
+        };
+
+        const updateThemeControl = (theme) => {
+            const label =
+                theme === 'dark'
+                    ? 'Switch to light mode'
+                    : 'Switch to dark mode';
+
+            toggleTheme.setAttribute('aria-label', label);
+            toggleTheme.setAttribute('title', label);
+        };
+
+        const updateBrandLogo = (theme) => {
+            const nextLogo =
+                theme === 'dark'
+                    ? brandLogo.dataset.darkSrc
+                    : brandLogo.dataset.lightSrc;
+
+            if (brandLogo.getAttribute('src') !== nextLogo) {
+                brandLogo.setAttribute('src', nextLogo);
+            }
+        };
+
+        const setTheme = (theme) => {
+            root.setAttribute('data-theme', theme);
+            updateThemeControl(theme);
+            updateBrandLogo(theme);
+        };
+
+        const prefersLightTheme =
+            window.matchMedia
+            && window.matchMedia('(prefers-color-scheme: light)').matches;
+
+        const storedTheme =
+            getStoredTheme();
+
+        const initialTheme =
+            storedTheme === 'dark' || storedTheme === 'light'
+                ? storedTheme
+                : (prefersLightTheme ? 'light' : 'dark');
+
+        setTheme(initialTheme);
+
         toggleTheme.addEventListener('click', () => {
 
             const currentTheme =
-                document.documentElement.getAttribute('data-theme');
+                root.getAttribute('data-theme');
 
             const nextTheme =
                 currentTheme === 'dark'
                     ? 'light'
                     : 'dark';
 
-            document.documentElement.setAttribute(
-                'data-theme',
-                nextTheme
-            );
+            setTheme(nextTheme);
+            storeTheme(nextTheme);
         });
 
     </script>
