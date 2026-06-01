@@ -100,6 +100,123 @@
             filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
         }
 
+        .studio-nav {
+            position: relative;
+            z-index: 5;
+
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            gap: 0.75rem;
+
+            margin: 0 auto 2rem;
+        }
+
+        .studio-nav details {
+            position: relative;
+        }
+
+        .studio-nav summary {
+            display: flex;
+            align-items: center;
+
+            gap: 0.45rem;
+
+            padding: 0.65rem 0.95rem;
+
+            border-radius: 999px;
+
+            background: rgba(72, 191, 184, 0.08);
+
+            border: 1px solid rgba(72, 191, 184, 0.16);
+
+            color: var(--text);
+
+            cursor: pointer;
+
+            font-size: 0.9rem;
+            font-weight: 400;
+
+            list-style: none;
+
+            transition: var(--transition);
+        }
+
+        .studio-nav summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .studio-nav summary::after {
+            width: 0.45rem;
+            height: 0.45rem;
+
+            border-right: 1.5px solid currentColor;
+            border-bottom: 1.5px solid currentColor;
+
+            content: "";
+
+            transform: rotate(45deg) translateY(-0.1rem);
+            transition: var(--transition);
+        }
+
+        .studio-nav details[open] summary::after {
+            transform: rotate(-135deg) translateY(-0.05rem);
+        }
+
+        .studio-nav summary:hover,
+        .studio-nav details[open] summary {
+            background: rgba(72, 191, 184, 0.16);
+
+            color: var(--text);
+        }
+
+        .studio-nav summary:focus-visible {
+            outline: 3px solid var(--accent-text);
+
+            outline-offset: 4px;
+        }
+
+        .studio-nav-menu {
+            position: absolute;
+            top: calc(100% + 0.6rem);
+            left: 50%;
+
+            min-width: 180px;
+
+            padding: 0.5rem;
+
+            border-radius: var(--radius);
+
+            background: var(--card-bg);
+
+            border: 1px solid rgba(72, 191, 184, 0.12);
+
+            box-shadow: var(--shadow);
+
+            text-align: left;
+
+            transform: translateX(-50%);
+        }
+
+        .studio-nav-menu a {
+            display: block;
+
+            padding: 0.65rem 0.8rem;
+
+            border-radius: calc(var(--radius) - 8px);
+
+            color: var(--text);
+
+            font-size: 0.9rem;
+        }
+
+        .studio-nav-menu a:hover {
+            background: var(--hover);
+
+            color: var(--text);
+        }
+
         .hero h1 {
             font-size: clamp(2.5rem, 7vw, 5rem);
 
@@ -122,7 +239,7 @@
             line-height: 1.9;
         }
 
-        .hero-tags {
+        .hero-actions {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
@@ -132,24 +249,45 @@
             margin-top: 2rem;
         }
 
-        .hero-tag {
-            padding: 0.7rem 1rem;
+        .hero-action {
+            padding: 0.85rem 1.2rem;
 
             border-radius: 999px;
 
-            background: rgba(72, 191, 184, 0.08);
+            border: 1px solid rgba(72, 191, 184, 0.2);
 
-            border: 1px solid rgba(72, 191, 184, 0.12);
+            font-size: 0.95rem;
+            font-weight: 400;
 
-            font-size: 0.9rem;
+            color: var(--text);
 
             transition: var(--transition);
         }
 
-        .hero-tag:hover {
+        .hero-action:hover {
             transform: translateY(-2px);
+        }
 
+        .hero-action-primary {
+            background: var(--primary);
+
+            color: white;
+        }
+
+        .hero-action-primary:hover {
+            color: white;
+
+            box-shadow: 0 12px 28px rgba(51, 124, 97, 0.28);
+        }
+
+        .hero-action-secondary {
+            background: rgba(72, 191, 184, 0.08);
+        }
+
+        .hero-action-secondary:hover {
             background: rgba(72, 191, 184, 0.16);
+
+            color: var(--text);
         }
 
         .section-grid {
@@ -251,6 +389,31 @@
         .footer {
             margin-top: 4rem;
         }
+
+        @media (max-width: 700px) {
+            .studio-nav {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .studio-nav details {
+                width: 100%;
+            }
+
+            .studio-nav summary {
+                justify-content: space-between;
+            }
+
+            .studio-nav-menu {
+                position: static;
+
+                width: 100%;
+
+                margin-top: 0.6rem;
+
+                transform: none;
+            }
+        }
     </style>
 
 </head>
@@ -288,85 +451,128 @@
                 Børilden Studio
             </h1>
 
-            <p>
-                Development, infrastructure, chemistry, photography and creative technology.
-                A self-hosted technical playground exploring backend systems,
-                networking, automation and digital creativity.
-            </p>
+            <nav class="studio-nav" aria-label="Site navigation">
+                <details>
+                    <summary>
+                        Who Am I?
+                    </summary>
 
-            <nav class="hero-tags" aria-label="Main navigation">
-                <a href="./about/index.html" class="hero-tag">
-                    Who I Am
-                </a>
+                    <div class="studio-nav-menu">
+                        <a href="./about/index.html">
+                            About
+                        </a>
 
-                <a href="./portfolio/index.html" class="hero-tag">
-                    Photography
-                </a>
+                        <a href="./resume/index.html">
+                            Resume / CV
+                        </a>
 
-                <a href="./resume/index.html" class="hero-tag">
-                    The Professional Me
-                </a>
+                        <a href="./links/index.html">
+                            Links
+                        </a>
 
-                <a href="./tools/index.html" class="hero-tag">
-                    Homelab Tools
-                </a>
+                        <a href="./contact/index.html">
+                            Contact
+                        </a>
+                    </div>
+                </details>
 
-                <a href="./contact/index.html" class="hero-tag">
-                    Where am I?
-                </a>
+                <details>
+                    <summary>
+                        Studio Work
+                    </summary>
 
+                    <div class="studio-nav-menu">
+                        <a href="./portfolio/index.html">
+                            Photography
+                        </a>
+
+                        <a href="#projects-heading">
+                            Featured Projects
+                        </a>
+
+                        <a href="#creative-technology">
+                            Creative Technology
+                        </a>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>
+                        Homelab
+                    </summary>
+
+                    <div class="studio-nav-menu">
+                        <a href="./tools/index.html">
+                            Tools
+                        </a>
+
+                        <a href="#infrastructure">
+                            Infrastructure
+                        </a>
+
+                        <a href="#truenas-homelab">
+                            TrueNAS Homelab
+                        </a>
+                    </div>
+                </details>
             </nav>
+
+            <p>
+                I'm Ben Børilden — a Process Engineer at GE HealthCare, I have a passion for well most thing computer-related, gaming, photography, and of course chemistry. 
+                Børilden Studio is my attempt at a project (my first project) where I share my photos, projects and maybe even my thoughts. 
+                Hopefully this will eventually grow to host my entire photography portfolio and maybe even a blog (if I have the balls for it), 
+                but for now it's just a place to share some things I'm working on and my progress on "learning" / vibe-coding in HTML, JavaScript and CSS.
+                <br>If you don't know me already, well grand that you found your way here, <br>I hope you enjoy my/ChatGPT's work! 
+            </p>
 
         </section>
 
-        <!-- Focus Areas -->
+        <!-- Main Interests -->
 
         <section aria-labelledby="focus-heading">
 
             <h2 id="focus-heading">
-                Focus Areas
+                My Main Interests
             </h2>
 
             <div class="section-grid">
 
-                <article class="section-card">
+                <article class="section-card" id="infrastructure">
 
                     <h3>
                         Infrastructure
                     </h3>
 
                     <p>
-                        Self-hosted services, Docker deployments, reverse proxies,
+                        I've started to dabble in self-hosted services, Docker deployments, reverse proxies,
                         networking, automation and infrastructure experiments built
-                        on TrueNAS, Caddy and Linux-based systems.
+                        on TrueNAS, Caddy and Git workflows. This website for example is hosted on my very own server!
                     </p>
 
                 </article>
 
-                <article class="section-card">
+                <article class="section-card" id="photography">
 
                     <h3>
-                        Development
+                        Photography
                     </h3>
 
                     <p>
-                        Exploring backend APIs, FastAPI, Node.js,
-                        PostgreSQL and software architecture while learning modern
-                        full-stack development practices.
+                        During my university years I decided I want to dive deep into my at that point only somewhat photography hobby.
+                        I bought a camera, started taking photos and well not learning too much at the beginning, check out "Who am I?" for more on that story.
                     </p>
 
                 </article>
 
-                <article class="section-card">
+                <article class="section-card" id="gaming">
 
                     <h3>
-                        Creative Technology
+                        Gaming
                     </h3>
 
                     <p>
-                        Combining technical systems, photography, gaming,
-                        design and experimentation into one evolving
-                        digital studio and personal portfolio.
+                        Yes, I am a "hardcore" gamer, I have been gaming since about 2012 (when I was 10).
+                        I can't say that this will change any time soon. I would talk on, but I think it will be a bit too long for a quick intro on the landing page, check out "Who am I?" for more on that.
                     </p>
 
                 </article>
@@ -375,37 +581,6 @@
 
         </section>
 
-        <!-- About -->
-
-        <section class="about-section">
-
-            <h2>
-                About
-            </h2>
-
-            <p>
-                I'm Ben Børilden — a Process Engineer at GE HealthCare
-                with a Master's degree in Chemistry specializing in analytical chemistry.
-                My professional background combines analytical thinking,
-                process optimization and regulated GMP/GxP production systems.
-            </p>
-
-            <p>
-                I work closely with digital manufacturing systems,
-                PAS-X MES, batch documentation, CAPA and process robustness.
-                Alongside my engineering work, I have a growing passion
-                for backend development, networking and self-hosted infrastructure.
-            </p>
-
-            <p>
-                Børilden Studio is where these interests meet:
-                development, infrastructure, photography,
-                creative technology and experimentation.
-                This website itself is entirely self-hosted —
-                frontend, backend and infrastructure.
-            </p>
-
-        </section>
 
         <!-- Featured Projects -->
 
@@ -417,18 +592,6 @@
 
             <div class="section-grid">
 
-                <article class="section-card">
-
-                    <h3>
-                        TrueNAS Homelab
-                    </h3>
-
-                    <p>
-                        A self-hosted infrastructure stack powered by Docker,
-                        Caddy, HTTPS automation, Git workflows and remote access tooling.
-                    </p>
-
-                </article>
 
                 <article class="section-card">
 
@@ -437,8 +600,7 @@
                     </h3>
 
                     <p>
-                        A future curated collection of photography work
-                        focused on atmosphere, aesthetics and storytelling.
+                        All my photography work, from the university days of my photography journey to the present, to be showcased here.
                     </p>
 
                 </article>
@@ -450,8 +612,9 @@
                     </h3>
 
                     <p>
-                        Experimental APIs and backend systems exploring
-                        automation, integrations and complex technical ideas.
+                        I have no idea what API's are, <br>
+                        but I am sure I will add some, <br>
+                        who the knows maybe I will make something incredible!
                     </p>
 
                 </article>
@@ -463,8 +626,9 @@
                     </h3>
 
                     <p>
-                        Long-term project idea exploring integration
-                        between Apple Calendar, Outlook and custom backend systems.
+                        A really long-term project where well anyone can book time slots with me to take photos 
+                        and I can accept them or not and have this integrate with my Apple / Outlook calender. <br>
+                        That indeed would be awesome to accomplish!
                     </p>
 
                 </article>
@@ -529,7 +693,7 @@
             </p>
 
             <div class="credit">
-                Self-hosted infrastructure • Development • Creative Technology
+                Fun fact: I am one of the four male decandants in the world (as far as I know) with the surname "Børilden", <br>so if you meet another "Børilden" they are probably related to me in some way, maybe a distant cousin or something, who knows!
             </div>
 
         </footer>
