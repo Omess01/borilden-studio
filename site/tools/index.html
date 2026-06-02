@@ -2,95 +2,224 @@
 <html lang="en" data-theme="dark">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
 
-    <title>Børilden Studio | Tools</title>
+    <title>Custom Tools | Børilden Studio</title>
 
-    <meta name="description"
-        content="Tools, experiments and resources from Børilden Studio. Development, infrastructure and creative technology." />
+    <meta
+        name="description"
+        content="Custom tools, utilities and experiments from Børilden Studio.">
 
-    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Børilden Studio">
-    <meta property="og:description"
-        content="Development, infrastructure and creative technology projects.">
-    <meta property="og:url" content="https://borildenstudio.no/tools">
-    <meta property="og:type" content="website">
-    <meta property="og:image"
+    <link
+        rel="icon"
+        type="image/png"
+        href="../assets/images/logo.png">
+
+    <link
+        rel="canonical"
+        href="https://borildenstudio.no/tools/">
+
+    <meta
+        property="og:title"
+        content="Custom Tools | Børilden Studio">
+
+    <meta
+        property="og:description"
+        content="Utilities, infrastructure experiments and custom tools from Børilden Studio.">
+
+    <meta
+        property="og:url"
+        content="https://borildenstudio.no/tools/">
+
+    <meta
+        property="og:type"
+        content="website">
+
+    <meta
+        property="og:image"
         content="https://borildenstudio.no/assets/images/logo.png">
 
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link
+        rel="stylesheet"
+        href="../assets/css/styles.css">
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/page.css">
 </head>
 
 <body>
-
     <button
+        type="button"
         class="theme-toggle"
         id="toggleTheme"
-        title="Toggle dark/light mode"
-        aria-label="Toggle dark/light mode">
+        title="Switch to light mode"
+        aria-label="Switch to light mode">
         🌓
     </button>
 
-    <div class="container">
+    <div class="container page-shell">
+        <header class="site-header">
+            <a
+                href="../index.html"
+                class="brand-link"
+                aria-label="Børilden Studio home">
+                <img
+                    id="brandLogo"
+                    src="../assets/images/logo_white_text.png"
+                    data-dark-src="../assets/images/logo_white_text.png"
+                    data-light-src="../assets/images/logo.png"
+                    alt="Børilden Studio"
+                    width="170"
+                    height="90"
+                    decoding="async">
 
-        <header>
-            <h1>Børilden Studio</h1>
+                <span class="brand-name">
+                    Børilden Studio
+                </span>
+            </a>
 
-            <p class="bio">
-                Development, infrastructure and creative technology.
-            </p>
+            <nav
+                class="studio-nav"
+                aria-label="Site navigation">
+                <details>
+                    <summary>
+                        Who Am I?
+                    </summary>
 
-            <nav class="main-nav" aria-label="Main navigation">
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/projects">Projects</a>
-                <a href="/portfolio">Portfolio</a>
-                <a href="/contact">Contact</a>
-                <a href="/links">Links</a>
-                <a href="/tools">Tools</a>
+                    <div class="studio-nav-menu">
+                        <a href="../about/index.html">
+                            About
+                        </a>
+
+                        <a href="../resume/index.html">
+                            Resume / CV
+                        </a>
+
+                        <a href="../links/index.html">
+                            Links
+                        </a>
+
+                        <a href="../gaming/index.html">
+                            Gaming Profiles
+                        </a>
+
+                        <a href="../contact/index.html">
+                            Contact
+                        </a>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>
+                        Studio Work
+                    </summary>
+
+                    <div class="studio-nav-menu">
+                        <a href="../journey/index.html">
+                            Photography Journey
+                        </a>
+
+                        <a href="../portfolio/index.html">
+                            Portfolio
+                        </a>
+
+                        <a href="../albums/index.html">
+                            Albums
+                        </a>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>
+                        Homelab
+                    </summary>
+
+                    <div class="studio-nav-menu">
+                        <a
+                            href="../tools/index.html"
+                            aria-current="page">
+                            Custom Tools
+                        </a>
+
+                        <a href="../infrastructure/index.html">
+                            Current Setup
+                        </a>
+                    </div>
+                </details>
             </nav>
         </header>
 
         <main>
+            <section
+                class="page-hero"
+                aria-labelledby="page-title">
+                <div>
+                    <p class="page-kicker">
+                        Custom Tools
+                    </p>
 
-            <a href="/" class="back-link">
-                ← Back to Home
-            </a>
+                    <h1 id="page-title">
+                        Small utilities and experiments worth keeping.
+                    </h1>
 
-            <section class="section-heading">
-                <h2>Tools</h2>
+                    <p>
+                        A home for useful browser tools, backend experiments and future utilities that grow out of the homelab and website.
+                    </p>
+                </div>
 
-                <p>
-                    A collection of useful tools, infrastructure experiments and development resources.
-                </p>
+                <aside class="hero-panel">
+                    <div class="hero-panel-body">
+                        <strong>
+                            Tool Shelf
+                        </strong>
+
+                        <p>
+                            Search, launch and add new utilities without changing the overall page structure.
+                        </p>
+
+                        <div class="tag-list">
+                            <span>HTML</span>
+                            <span>JavaScript</span>
+                            <span>Docker</span>
+                            <span>Ideas</span>
+                        </div>
+                    </div>
+                </aside>
             </section>
 
-            <section class="search-bar">
+            <section class="page-section search-bar">
+                <label
+                    class="visually-hidden"
+                    for="searchInput">
+                    Search tools
+                </label>
+
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Search tools..." />
+                    placeholder="Search tools...">
             </section>
 
             <section
                 class="tools-grid"
-                id="toolsGrid">
-
-                <!-- QR Code Generator -->
-
+                id="toolsGrid"
+                aria-label="Available tools">
                 <article
                     class="tool-card"
-                    data-name="qr code generator">
-
+                    data-name="qr code generator custom url">
                     <div class="tool-card-preview">
-                        📱
+                        QR
                     </div>
 
                     <div class="tool-card-body">
-                        <h3>QR Code Generator</h3>
+                        <h3>
+                            QR Code Generator
+                        </h3>
 
                         <p>
                             Generate custom QR codes for URLs instantly.
@@ -98,71 +227,63 @@
                     </div>
 
                     <div class="tool-card-footer">
-                        <a href="./qr-code-generator/">
-                            Try it out →
+                        <a href="./qr-code-generator/index.html">
+                            Try it out ->
                         </a>
                     </div>
-
                 </article>
-
-                <!-- Infrastructure -->
 
                 <article
                     class="tool-card"
-                    data-name="docker homelab infrastructure">
-
+                    data-name="homelab docker caddy infrastructure">
                     <div class="tool-card-preview">
-                        🖥️
+                        HL
                     </div>
 
                     <div class="tool-card-body">
-                        <h3>Infrastructure</h3>
+                        <h3>
+                            Homelab Notes
+                        </h3>
 
                         <p>
-                            Docker deployments, reverse proxies, networking and self-hosted infrastructure experiments.
+                            A launch point for Docker, Caddy, TrueNAS Scale and service notes.
                         </p>
                     </div>
 
                     <div class="tool-card-footer">
-                        <a href="/projects">
-                            View projects →
+                        <a href="../infrastructure/index.html">
+                            View setup ->
                         </a>
                     </div>
-
                 </article>
-
-                <!-- Future Tools -->
 
                 <article
                     class="tool-card"
-                    data-name="future projects tools">
-
+                    data-name="future api backend calendar booking">
                     <div class="tool-card-preview">
-                        ⚙️
+                        API
                     </div>
 
                     <div class="tool-card-body">
-                        <h3>Future Tools</h3>
+                        <h3>
+                            Future Backend Tools
+                        </h3>
 
                         <p>
-                            Experimental utilities, backend services and creative technical projects currently in development.
+                            A placeholder for APIs, booking ideas and tiny utilities that need a backend later.
                         </p>
                     </div>
 
                     <div class="tool-card-footer">
-                        <a href="/links">
-                            Explore →
+                        <a href="../about/index.html">
+                            Read more ->
                         </a>
                     </div>
-
                 </article>
-
             </section>
-
         </main>
 
         <footer class="footer">
-
             <p>
                 © <span id="year"></span> Børilden Studio
             </p>
@@ -170,84 +291,46 @@
             <div class="credit">
                 Built with HTML, CSS, Docker, Caddy and self-hosted infrastructure.
             </div>
-
         </footer>
-
     </div>
 
+    <script src="../assets/js/script.js"></script>
+
     <script>
-        document.getElementById('year').textContent =
-            new Date().getFullYear();
-
-        const searchInput =
-            document.getElementById('searchInput');
-
-        const cards =
-            document.querySelectorAll('.tool-card');
-
-        const grid =
-            document.getElementById('toolsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const cards = Array.from(document.querySelectorAll('.tool-card'));
+        const grid = document.getElementById('toolsGrid');
 
         searchInput.addEventListener('input', () => {
-            const query =
-                searchInput.value.toLowerCase();
-
+            const query = searchInput.value.toLowerCase();
             let visible = 0;
 
-            cards.forEach(card => {
-                const name =
-                    card.getAttribute('data-name') || '';
+            cards.forEach((card) => {
+                const name = card.getAttribute('data-name') || '';
+                const matches = name.includes(query);
 
-                const matches =
-                    name.includes(query);
+                card.style.display = matches ? '' : 'none';
 
-                card.style.display =
-                    matches ? '' : 'none';
-
-                if (matches) visible++;
+                if (matches) {
+                    visible += 1;
+                }
             });
 
-            let noResults =
-                document.getElementById('noResults');
+            let noResults = document.getElementById('noResults');
 
-            if (visible === 0) {
-                if (!noResults) {
-                    noResults =
-                        document.createElement('p');
+            if (visible === 0 && !noResults) {
+                noResults = document.createElement('p');
+                noResults.id = 'noResults';
+                noResults.className = 'no-results';
+                noResults.textContent = 'No tools found.';
+                grid.appendChild(noResults);
+            }
 
-                    noResults.id = 'noResults';
-
-                    noResults.className = 'no-results';
-
-                    noResults.textContent =
-                        'No tools found.';
-
-                    grid.appendChild(noResults);
-                }
-            } else {
-                if (noResults) noResults.remove();
+            if (visible > 0 && noResults) {
+                noResults.remove();
             }
         });
-
-        const toggleTheme =
-            document.getElementById('toggleTheme');
-
-        toggleTheme.addEventListener('click', () => {
-            const currentTheme =
-                document.documentElement.getAttribute('data-theme');
-
-            const nextTheme =
-                currentTheme === 'dark'
-                    ? 'light'
-                    : 'dark';
-
-            document.documentElement.setAttribute(
-                'data-theme',
-                nextTheme
-            );
-        });
     </script>
-
 </body>
 
 </html>

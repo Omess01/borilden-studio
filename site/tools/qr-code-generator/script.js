@@ -1,19 +1,40 @@
-const form = document.getElementById("form");
-const text = document.getElementById("text");
-const btn = document.getElementById("btn");
-const img = document.getElementById("qr-code");
+const form = document.getElementById('form');
+const text = document.getElementById('text');
+const btn = document.getElementById('btn');
+const img = document.getElementById('qr-code');
+const resultText = document.getElementById('resultText');
 
-async function generateQR() {
+const setGenerating = (isGenerating) => {
+    btn.disabled = isGenerating;
+    btn.textContent = isGenerating ? 'Generating...' : 'Generate';
+};
+
+function generateQR(event) {
     event.preventDefault();
 
-    btn.setAttribute("disabled", true);
-    btn.innerHTML = "Generating...";
+    const value = text.value.trim();
 
-    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${text.value.trim()}`;
-    img.classList.remove("hidden");
+    if (!value) {
+        return;
+    }
+
+    setGenerating(true);
+
+    img.onload = () => {
+        resultText.textContent = 'QR code generated.';
+        setGenerating(false);
+    };
+
+    img.onerror = () => {
+        resultText.textContent = 'Could not generate the QR code. Please try again.';
+        img.hidden = true;
+        setGenerating(false);
+    };
+
+    img.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(value)}`;
+    img.hidden = false;
 
     form.reset();
-
-    btn.removeAttribute("disabled");
-    btn.innerHTML = "Generate";
 }
+
+form.addEventListener('submit', generateQR);

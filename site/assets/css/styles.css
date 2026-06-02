@@ -94,7 +94,7 @@ body {
 ========================================= */
 
 .container {
-    width: 100%;
+    width: auto;
     max-width: var(--container-width);
 
     margin: 0 auto;
@@ -131,7 +131,7 @@ h2 {
 
     text-transform: uppercase;
 
-    letter-spacing: 1px;
+    letter-spacing: 0;
 
     color: var(--accent-text);
 }

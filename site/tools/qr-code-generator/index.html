@@ -1,50 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en" data-theme="dark">
 
-        <!-- HTML Meta Tags -->
-        <title>QR Codes Generator</title>
-        <meta name="description" content="A simple QR Codes generator.">
+<head>
+    <meta charset="UTF-8">
 
-        <!-- Google / Search Engine Tags -->
-        <meta itemprop="name" content="QR Code Generator">
-        <meta itemprop="description" content="A simple QR Code generator.">
+    <title>QR Code Generator | Børilden Studio</title>
 
-        <!-- Facebook Meta Tags -->
-        <meta property="og:url" content="https://qr-codes-generator.vercel.app/">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="QR Code Generator">
-        <meta property="og:description" content="A simple QR Code generator.">
+    <meta
+        name="description"
+        content="Generate QR codes for URLs and text with a simple Børilden Studio tool.">
 
-        <!-- Twitter Meta Tags -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="QR Code Generator">
-        <meta name="twitter:description" content="A simple QR Code generator.">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-        <!-- Scripts -->
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
+    <link
+        rel="icon"
+        type="image/png"
+        href="../../assets/images/logo.png">
 
-    <body class="p-8 max-w-md m-auto bg-zinc-900 text-white text-center">
+    <link
+        rel="canonical"
+        href="https://borildenstudio.no/tools/qr-code-generator/">
+
+    <meta
+        property="og:title"
+        content="QR Code Generator | Børilden Studio">
+
+    <meta
+        property="og:description"
+        content="Generate QR codes for URLs and text.">
+
+    <meta
+        property="og:url"
+        content="https://borildenstudio.no/tools/qr-code-generator/">
+
+    <meta
+        property="og:type"
+        content="website">
+
+    <meta
+        property="og:image"
+        content="https://borildenstudio.no/assets/images/logo.png">
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/styles.css">
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/page.css">
+</head>
+
+<body>
+    <button
+        type="button"
+        class="theme-toggle"
+        id="toggleTheme"
+        title="Switch to light mode"
+        aria-label="Switch to light mode">
+        🌓
+    </button>
+
+    <div class="container page-shell">
+        <header class="site-header">
+            <a
+                href="../../index.html"
+                class="brand-link"
+                aria-label="Børilden Studio home">
+                <img
+                    id="brandLogo"
+                    src="../../assets/images/logo_white_text.png"
+                    data-dark-src="../../assets/images/logo_white_text.png"
+                    data-light-src="../../assets/images/logo.png"
+                    alt="Børilden Studio"
+                    width="170"
+                    height="90"
+                    decoding="async">
+
+                <span class="brand-name">
+                    Børilden Studio
+                </span>
+            </a>
+
+            <nav
+                class="studio-nav"
+                aria-label="Site navigation">
+                <details>
+                    <summary>
+                        Who Am I?
+                    </summary>
+
+                    <div class="studio-nav-menu">
+                        <a href="../../about/index.html">
+                            About
+                        </a>
+
+                        <a href="../../resume/index.html">
+                            Resume / CV
+                        </a>
+
+                        <a href="../../links/index.html">
+                            Links
+                        </a>
+
+                        <a href="../../gaming/index.html">
+                            Gaming Profiles
+                        </a>
+
+                        <a href="../../contact/index.html">
+                            Contact
+                        </a>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>
+                        Studio Work
+                    </summary>
+
+                    <div class="studio-nav-menu">
+                        <a href="../../journey/index.html">
+                            Photography Journey
+                        </a>
+
+                        <a href="../../portfolio/index.html">
+                            Portfolio
+                        </a>
+
+                        <a href="../../albums/index.html">
+                            Albums
+                        </a>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>
+                        Homelab
+                    </summary>
+
+                    <div class="studio-nav-menu">
+                        <a
+                            href="../index.html"
+                            aria-current="page">
+                            Custom Tools
+                        </a>
+
+                        <a href="../../infrastructure/index.html">
+                            Current Setup
+                        </a>
+                    </div>
+                </details>
+            </nav>
+        </header>
+
         <main>
-            <h1 class="text-3xl font-bold mb-2">QR Codes Generator 🚀</h1>
-            <p class="mb-4">Enter a URL or some text to generate a QR code.</p>
+            <section
+                class="page-hero"
+                aria-labelledby="page-title">
+                <div>
+                    <p class="page-kicker">
+                        Tool
+                    </p>
 
-            <form id="form" onsubmit="generateQR()">
-                <input type="text" id="text" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600 mb-6" spellcheck="false" maxlength="2048" placeholder="Text / URL" required>
-                <button type="submit" id="btn" class="bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5">Generate</button>
-            </form>
+                    <h1 id="page-title">
+                        QR Code Generator
+                    </h1>
 
-            <img id="qr-code" src="" class="border-8 border-white rounded-md mt-8 mx-auto hidden">
+                    <p>
+                        Paste a URL or text, generate a QR code and save the result from your browser.
+                    </p>
+
+                    <div class="page-actions">
+                        <a
+                            class="button-link button-link-secondary"
+                            href="../index.html">
+                            Back to Tools
+                        </a>
+                    </div>
+                </div>
+
+                <aside class="hero-panel">
+                    <div class="hero-panel-body">
+                        <strong>
+                            Utility
+                        </strong>
+
+                        <p>
+                            The generated image is requested from a public QR code API using the text you enter.
+                        </p>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="page-section">
+                <h2>
+                    Generate
+                </h2>
+
+                <form
+                    id="form"
+                    class="tool-form">
+                    <label for="text">
+                        Text or URL
+                    </label>
+
+                    <div class="tool-form-row">
+                        <input
+                            type="text"
+                            id="text"
+                            maxlength="2048"
+                            placeholder="https://borildenstudio.no"
+                            spellcheck="false"
+                            required>
+
+                        <button
+                            type="submit"
+                            id="btn"
+                            class="button-link button-link-primary">
+                            Generate
+                        </button>
+                    </div>
+                </form>
+
+                <div
+                    class="result-panel"
+                    aria-live="polite">
+                    <img
+                        id="qr-code"
+                        class="qr-output"
+                        alt="Generated QR code"
+                        hidden>
+
+                    <p id="resultText">
+                        No QR code generated yet.
+                    </p>
+                </div>
+            </section>
         </main>
 
-        <footer class="mt-8">
-            <p>&copy; 2023 <span class="font-semibold">AnukarOP</span> - All Rights Reserved.</p>
+        <footer class="footer">
+            <p>
+                © <span id="year"></span> Børilden Studio
+            </p>
         </footer>
-    </body>
+    </div>
 
-    <script src="/script.js"></script>
+    <script src="../../assets/js/script.js"></script>
+    <script src="./script.js"></script>
+</body>
+
 </html>
