@@ -1,0 +1,81 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../Layout.astro";
+import PageFooterNav from "../../components/PageFooterNav.astro";
+import TaggedWritingSection from "../../components/TaggedWritingSection.astro";
+import { navGroups } from "../../data/navigation";
+import { pageWritingTags } from "../../data/pageTags";
+
+export async function getStaticPaths() {
+    const projects = await getCollection("projects");
+
+    return projects.map((project) => ({
+        params: { slug: project.id },
+        props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<Layout
+    title={project.data.title}
+    pageTitle={project.data.title}
+    eyebrow="Portfolio"
+    description={project.data.description}
+    intro={project.data.description}
+    canonicalPath={`/portfolio/${project.id}/`}
+    currentPath="/portfolio/"
+    navGroups={navGroups}>
+    {
+        project.data.externalUrl && (
+            <a
+                slot="actions"
+                class="button-link button-link-primary"
+                href={project.data.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer">
+                Open Project
+            </a>
+        )
+    }
+
+    {
+        project.data.heroImage && (
+            <aside slot="heroPanel" class="hero-panel">
+                <img
+                    src={project.data.heroImage.src}
+                    alt={project.data.heroImage.alt}
+                    loading="eager"
+                    decoding="async"
+                />
+                {
+                    project.data.heroImage.caption && (
+                        <div class="hero-panel-body">
+                            <p>{project.data.heroImage.caption}</p>
+                        </div>
+                    )
+                }
+            </aside>
+        )
+    }
+
+    <article class="content-prose">
+        <div class="content-meta">
+            <span class="card-meta">{project.data.status}</span>
+            {project.data.tags.map((tag) => <span class="card-meta">{tag}</span>)}
+        </div>
+
+        <Content />
+    </article>
+
+    <TaggedWritingSection
+        tags={[...pageWritingTags.portfolio, ...project.data.tags]}
+        heading="Related Writing"
+        intro="Published writing with matching project or portfolio tags will show up here."
+        emptyText="No related portfolio writing has been published yet."
+    />
+
+    <PageFooterNav links={[{ label: "Back to Portfolio", href: "/portfolio/" }]} />
+</Layout>

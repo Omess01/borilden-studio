@@ -1,0 +1,64 @@
+---
+import Layout from "../Layout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import PageFooterNav from "../components/PageFooterNav.astro";
+import TaggedWritingSection from "../components/TaggedWritingSection.astro";
+import { navGroups } from "../data/navigation";
+import { pageWritingTags } from "../data/pageTags";
+---
+
+<Layout
+    title="Resume / CV"
+    pageTitle="Resume / CV"
+    eyebrow="Who Am I?"
+    description="Resume and CV template for Ben Børilden."
+    intro="A structured starting point for replacing the static resume page with editable Astro content."
+    canonicalPath="/resume/"
+    currentPath="/resume/"
+    navGroups={navGroups}>
+    <a slot="actions" class="button-link button-link-primary" href="mailto:Ben.Borilden@gehealthcare.com">
+        Contact Me
+    </a>
+
+    <ContentSection heading="Experience">
+        <ul class="plain-list">
+            <li>
+                <strong>Process Engineer, GE HealthCare</strong>
+                <p>Add dates, responsibilities, key systems, and outcomes here.</p>
+            </li>
+        </ul>
+    </ContentSection>
+
+    <ContentSection heading="Education">
+        <ul class="plain-list">
+            <li>
+                <strong>Master's degree in Chemistry, NMBU</strong>
+                <p>Add thesis, specialization, selected coursework, or relevant projects here.</p>
+            </li>
+        </ul>
+    </ContentSection>
+
+    <ContentSection heading="Skills">
+        <div class="tag-list">
+            <span>Chemistry</span>
+            <span>Process engineering</span>
+            <span>Photography</span>
+            <span>Docker</span>
+            <span>Astro</span>
+        </div>
+    </ContentSection>
+
+    <TaggedWritingSection
+        tags={pageWritingTags.resume}
+        heading="Career Notes"
+        intro="Published writing tagged with Resume, Career, Chemistry, or Process Engineering will show up here."
+        emptyText="No career notes have been published yet."
+    />
+
+    <PageFooterNav
+        links={[
+            { label: "About", href: "/about/" },
+            { label: "Links", href: "/links/" },
+        ]}
+    />
+</Layout>

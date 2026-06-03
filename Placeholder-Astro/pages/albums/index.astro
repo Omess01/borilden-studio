@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../Layout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import ContentSection from "../../components/ContentSection.astro";
+import TaggedWritingSection from "../../components/TaggedWritingSection.astro";
+import { navGroups } from "../../data/navigation";
+import { pageWritingTags } from "../../data/pageTags";
+
+const albums = (await getCollection("albums"))
+    .sort((a, b) => {
+        const aTime = a.data.date?.getTime() ?? 0;
+        const bTime = b.data.date?.getTime() ?? 0;
+        return bTime - aTime;
+    })
+    .map((album) => ({
+        title: album.data.title,
+        description: album.data.description,
+        href: `/albums/${album.id}/`,
+        meta: album.data.location,
+        image: album.data.cover,
+        tags: album.data.tags,
+    }));
+---
+
+<Layout
+    title="Albums"
+    pageTitle="Albums"
+    eyebrow="Studio Work"
+    description="Photography albums from Børilden Studio."
+    intro="Photo sets grouped by trip, event, season, or whatever makes sense when the pictures finally get sorted."
+    canonicalPath="/albums/"
+    currentPath="/albums/"
+    navGroups={navGroups}>
+    <ContentSection heading="Photo Albums">
+        <CardGrid
+            items={albums}
+            variant="album"
+            emptyText="No albums have been added yet."
+        />
+    </ContentSection>
+
+    <TaggedWritingSection
+        tags={pageWritingTags.albums}
+        heading="Album Notes"
+        intro="Published writing tagged with Album, Albums, or Photography will show up here."
+        emptyText="No album notes have been published yet."
+    />
+</Layout>

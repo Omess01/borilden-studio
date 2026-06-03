@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../Layout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import ContentSection from "../../components/ContentSection.astro";
+import TaggedWritingSection from "../../components/TaggedWritingSection.astro";
+import { navGroups } from "../../data/navigation";
+import { pageWritingTags } from "../../data/pageTags";
+
+const projects = (await getCollection("projects"))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map((project) => ({
+        title: project.data.title,
+        description: project.data.description,
+        href: `/portfolio/${project.id}/`,
+        meta: project.data.status,
+        image: project.data.heroImage,
+        tags: project.data.tags,
+    }));
+---
+
+<Layout
+    title="Photography Portfolio"
+    pageTitle="Photography Portfolio"
+    eyebrow="Studio Work"
+    description="Photography portfolio and project archive for Børilden Studio."
+    intro="A growing archive of photography work, project notes, and portfolio entries."
+    canonicalPath="/portfolio/"
+    currentPath="/portfolio/"
+    navGroups={navGroups}>
+    <ContentSection heading="Projects">
+        <CardGrid
+            items={projects}
+            variant="gallery"
+            emptyText="No portfolio entries have been added yet."
+        />
+    </ContentSection>
+
+    <TaggedWritingSection
+        tags={pageWritingTags.portfolio}
+        heading="Portfolio Notes"
+        intro="Published writing tagged with Portfolio, Photography, or Project will show up here."
+        emptyText="No portfolio notes have been published yet."
+    />
+</Layout>

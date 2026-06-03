@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../Layout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import ContentSection from "../../components/ContentSection.astro";
+import TaggedWritingSection from "../../components/TaggedWritingSection.astro";
+import { navGroups } from "../../data/navigation";
+import { pageWritingTags } from "../../data/pageTags";
+
+const tools = (await getCollection("tools"))
+    .sort((a, b) => a.data.title.localeCompare(b.data.title))
+    .map((tool) => ({
+        title: tool.data.title,
+        description: tool.data.description,
+        href: tool.data.href,
+        meta: tool.data.status,
+        tags: tool.data.tags,
+    }));
+---
+
+<Layout
+    title="Tools"
+    pageTitle="Tools"
+    eyebrow="Homelab"
+    description="Tools and browser utilities from Børilden Studio."
+    intro="Small utilities and experiments that are useful enough to keep around."
+    canonicalPath="/tools/"
+    currentPath="/tools/"
+    navGroups={navGroups}>
+    <ContentSection heading="Available Tools">
+        <CardGrid
+            items={tools}
+            variant="link"
+            emptyText="No tools have been added yet."
+        />
+    </ContentSection>
+
+    <TaggedWritingSection
+        tags={pageWritingTags.tools}
+        heading="Tool Notes"
+        intro="Published writing tagged with Tools, Utility, or JavaScript will show up here."
+        emptyText="No tool notes have been published yet."
+    />
+</Layout>

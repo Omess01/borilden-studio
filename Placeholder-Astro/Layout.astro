@@ -1,0 +1,458 @@
+---
+type NavItem = {
+    label: string;
+    href: string;
+};
+
+type NavGroup = {
+    label: string;
+    items: NavItem[];
+};
+
+interface Props {
+    title?: string;
+    description?: string;
+    pageTitle?: string;
+    eyebrow?: string;
+    intro?: string;
+    canonicalPath?: string;
+    ogImage?: string;
+    currentPath?: string;
+    assetBase?: string;
+    navGroups?: NavGroup[];
+    bodyClass?: string;
+    shellClass?: string;
+    showHeader?: boolean;
+    showHero?: boolean;
+    showCredit?: boolean;
+    siteUrl?: string;
+}
+
+const defaultDescription =
+    "Børilden Studio is a personal website for Ben Børilden, featuring photography, projects, tools, links, and notes from the studio.";
+
+const defaultNavGroups: NavGroup[] = [
+    {
+        label: "Who Am I?",
+        items: [
+            { label: "About", href: "/about/" },
+            { label: "Resume / CV", href: "/resume/" },
+            { label: "Links", href: "/links/" },
+            { label: "Writing", href: "/writing/" },
+            { label: "Gaming Profiles", href: "/gaming/" },
+        ],
+    },
+    {
+        label: "Studio Work",
+        items: [
+            { label: "Photography Journey", href: "/journey/" },
+            { label: "Portfolio", href: "/portfolio/" },
+            { label: "Albums", href: "/albums/" },
+        ],
+    },
+    {
+        label: "Homelab",
+        items: [
+            { label: "Tools", href: "/tools/" },
+            { label: "Current Setup", href: "/infrastructure/" },
+        ],
+    },
+];
+
+const {
+    title = "Børilden Studio",
+    description = defaultDescription,
+    pageTitle = title,
+    eyebrow = "Børilden Studio",
+    intro,
+    canonicalPath = Astro.url.pathname,
+    ogImage = "/assets/images/logo.png",
+    currentPath = Astro.url.pathname,
+    assetBase = "/assets",
+    navGroups = defaultNavGroups,
+    bodyClass = "",
+    shellClass = "",
+    showHeader = true,
+    showHero = true,
+    showCredit = false,
+    siteUrl = Astro.site?.toString() ?? "https://borildenstudio.no/",
+} = Astro.props;
+
+const siteName = "Børilden Studio";
+const headTitle =
+    title === siteName || title.includes(siteName)
+        ? title
+        : `${title} | ${siteName}`;
+
+const canonicalUrl = canonicalPath.startsWith("http")
+    ? canonicalPath
+    : new URL(canonicalPath, siteUrl).toString();
+
+const openGraphImage = ogImage.startsWith("http")
+    ? ogImage
+    : new URL(ogImage, siteUrl).toString();
+
+const normalizePath = (path: string) => {
+    const normalized = path
+        .replace(/^https?:\/\/[^/]+/i, "")
+        .replace(/\/index\.html$/i, "/")
+        .replace(/\/$/, "");
+
+    return normalized || "/";
+};
+
+const isCurrentPath = (href: string) =>
+    normalizePath(currentPath) === normalizePath(href);
+
+const hasHeroPanel = Astro.slots.has("heroPanel");
+const hasActions = Astro.slots.has("actions");
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>{headTitle}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalUrl} />
+
+        <link rel="icon" type="image/png" href={`${assetBase}/images/logo.png`} />
+
+        <meta property="og:title" content={headTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={siteName} />
+        <meta property="og:image" content={openGraphImage} />
+
+        <link rel="stylesheet" href={`${assetBase}/css/styles.css`} />
+        <link rel="stylesheet" href={`${assetBase}/css/page.css`} />
+
+        <slot name="head" />
+    </head>
+
+    <body class={bodyClass}>
+        <a class="skip-link" href="#content">Skip to content</a>
+
+        <button
+            type="button"
+            class="theme-toggle"
+            id="toggleTheme"
+            title="Switch to light mode"
+            aria-label="Switch to light mode">
+            🌓
+        </button>
+
+        <div class:list={["container", "page-shell", shellClass]}>
+            {
+                showHeader && (
+                    <header class="site-header">
+                        <a class="brand-link" href="/" aria-label="Børilden Studio home">
+                            <img
+                                id="brandLogo"
+                                src={`${assetBase}/images/logo_white_text.png`}
+                                data-dark-src={`${assetBase}/images/logo_white_text.png`}
+                                data-light-src={`${assetBase}/images/logo.png`}
+                                alt="Børilden Studio"
+                                width="170"
+                                height="170"
+                                decoding="async"
+                            />
+
+                            <span class="brand-name">Børilden Studio</span>
+                        </a>
+
+                        <nav class="studio-nav" aria-label="Site navigation">
+                            {
+                                navGroups.map((group) => (
+                                    <details>
+                                        <summary>{group.label}</summary>
+
+                                        <div class="studio-nav-menu">
+                                            {
+                                                group.items.map((item) => (
+                                                    <a
+                                                        href={item.href}
+                                                        aria-current={
+                                                            isCurrentPath(item.href)
+                                                                ? "page"
+                                                                : undefined
+                                                        }>
+                                                        {item.label}
+                                                    </a>
+                                                ))
+                                            }
+                                        </div>
+                                    </details>
+                                ))
+                            }
+                        </nav>
+                    </header>
+                )
+            }
+
+            {
+                showHero && (
+                    <section
+                        class:list={[
+                            "page-hero",
+                            { "page-hero-single": !hasHeroPanel },
+                        ]}
+                        aria-labelledby="page-title">
+                        <div>
+                            {eyebrow && <p class="page-kicker">{eyebrow}</p>}
+
+                            <h1 id="page-title">{pageTitle}</h1>
+
+                            {intro && <p>{intro}</p>}
+
+                            {
+                                hasActions && (
+                                    <div class="page-actions">
+                                        <slot name="actions" />
+                                    </div>
+                                )
+                            }
+                        </div>
+
+                        {hasHeroPanel && <slot name="heroPanel" />}
+                    </section>
+                )
+            }
+
+            <main id="content">
+                <slot />
+            </main>
+
+            <footer class="footer">
+                <p>Ben Børilden</p>
+
+                <p>
+                    <a href="mailto:Ben.Borilden@gehealthcare.com">
+                        Ben.Borilden@gehealthcare.com
+                    </a>
+                    {" | +47 900 75 366"}
+                </p>
+
+                <p>© <span id="year">{new Date().getFullYear()}</span> Børilden Studio</p>
+
+                {
+                    showCredit && (
+                        <div class="credit">
+                            Fun fact: I am one of the four male descendants in the world
+                            with the surname Børilden, as far as I know.
+                        </div>
+                    )
+                }
+
+                <slot name="footer" />
+            </footer>
+        </div>
+
+        <script is:inline>
+            const root = document.documentElement;
+
+            const yearElement = document.getElementById("year");
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+
+            const navDetails = Array.from(document.querySelectorAll(".studio-nav details"));
+
+            if (navDetails.length > 0) {
+                const closeAllNavDetails = () => {
+                    navDetails.forEach((detail) => {
+                        detail.open = false;
+                    });
+                };
+
+                document.addEventListener("click", (event) => {
+                    const clickedInsideNav =
+                        event.target instanceof Element
+                        && event.target.closest(".studio-nav");
+
+                    if (!clickedInsideNav) {
+                        closeAllNavDetails();
+                    }
+                });
+
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape") {
+                        closeAllNavDetails();
+                    }
+                });
+            }
+
+            const toggleTheme = document.getElementById("toggleTheme");
+            const brandLogo = document.getElementById("brandLogo");
+
+            const getStoredTheme = () => {
+                try {
+                    return localStorage.getItem("theme");
+                } catch {
+                    return null;
+                }
+            };
+
+            const storeTheme = (theme) => {
+                try {
+                    localStorage.setItem("theme", theme);
+                } catch {
+                    // Keep the toggle working when localStorage is unavailable.
+                }
+            };
+
+            const updateThemeControl = (theme) => {
+                if (!toggleTheme) {
+                    return;
+                }
+
+                const label =
+                    theme === "dark"
+                        ? "Switch to light mode"
+                        : "Switch to dark mode";
+
+                toggleTheme.setAttribute("aria-label", label);
+                toggleTheme.setAttribute("title", label);
+            };
+
+            const updateBrandLogo = (theme) => {
+                if (!brandLogo) {
+                    return;
+                }
+
+                const nextLogo =
+                    theme === "dark"
+                        ? brandLogo.dataset.darkSrc
+                        : brandLogo.dataset.lightSrc;
+
+                if (nextLogo && brandLogo.getAttribute("src") !== nextLogo) {
+                    brandLogo.setAttribute("src", nextLogo);
+                }
+            };
+
+            const setTheme = (theme) => {
+                root.setAttribute("data-theme", theme);
+                updateThemeControl(theme);
+                updateBrandLogo(theme);
+            };
+
+            const prefersLightTheme =
+                window.matchMedia
+                && window.matchMedia("(prefers-color-scheme: light)").matches;
+
+            const storedTheme = getStoredTheme();
+
+            const initialTheme =
+                storedTheme === "dark" || storedTheme === "light"
+                    ? storedTheme
+                    : (prefersLightTheme ? "light" : "dark");
+
+            setTheme(initialTheme);
+
+            if (toggleTheme) {
+                toggleTheme.addEventListener("click", () => {
+                    const currentTheme = root.getAttribute("data-theme");
+
+                    const nextTheme =
+                        currentTheme === "dark"
+                            ? "light"
+                            : "dark";
+
+                    setTheme(nextTheme);
+                    storeTheme(nextTheme);
+                });
+            }
+        </script>
+
+        <style is:global>
+            .skip-link {
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                z-index: 1001;
+
+                padding: 0.65rem 0.9rem;
+
+                border-radius: 999px;
+
+                background: var(--card-bg);
+                color: var(--text);
+
+                box-shadow: var(--shadow);
+
+                transform: translateY(-140%);
+            }
+
+            .skip-link:focus {
+                transform: translateY(0);
+            }
+
+            .page-hero-single {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .content-prose {
+                max-width: 780px;
+            }
+
+            .content-prose :where(h2, h3) {
+                margin-top: 2rem;
+            }
+
+            .content-prose :where(p, ul, ol, blockquote, pre) {
+                margin-bottom: 1.2rem;
+            }
+
+            .content-prose :where(ul, ol) {
+                padding-left: 1.3rem;
+                opacity: 0.85;
+            }
+
+            .content-prose img {
+                display: block;
+                width: 100%;
+                height: auto;
+                margin: 1.5rem 0;
+                border-radius: var(--radius);
+                box-shadow: var(--shadow);
+            }
+
+            .content-prose blockquote {
+                padding: 1rem 1.25rem;
+                border-left: 4px solid var(--accent);
+                border-radius: var(--radius);
+                background: rgba(72, 191, 184, 0.08);
+            }
+
+            .content-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .empty-state {
+                padding: 1.5rem;
+                border-radius: var(--radius);
+                background: rgba(72, 191, 184, 0.08);
+                color: var(--text);
+            }
+
+            .template-note {
+                margin-top: 1rem;
+                opacity: 0.65;
+                font-size: 0.9rem;
+            }
+
+            @media (max-width: 700px) {
+                .theme-toggle {
+                    width: 44px;
+                    height: 44px;
+                }
+            }
+        </style>
+    </body>
+</html>
