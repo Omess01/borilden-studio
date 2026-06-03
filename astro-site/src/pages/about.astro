@@ -1,0 +1,83 @@
+---
+import Layout from "../Layout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import HeroPanel from "../components/HeroPanel.astro";
+import PageFooterNav from "../components/PageFooterNav.astro";
+import StatGrid from "../components/StatGrid.astro";
+import TaggedWritingSection from "../components/TaggedWritingSection.astro";
+import { navGroups } from "../data/navigation";
+import { pageWritingTags } from "../data/pageTags";
+import { site } from "../data/site";
+
+const stats = [
+    {
+        label: "Work",
+        value: "Process Engineer",
+        description: "Currently working at GE HealthCare.",
+    },
+    {
+        label: "Education",
+        value: "MSc Chemistry",
+        description: "Completed at NMBU.",
+    },
+    {
+        label: "Studio",
+        value: "Børilden Studio",
+        description: "A personal place for photos, projects, tools, and notes.",
+    },
+];
+---
+
+<Layout
+    title="About"
+    pageTitle="About Ben"
+    eyebrow="Who Am I?"
+    description="About Ben Børilden, Børilden Studio, photography, chemistry, homelab work, and personal projects."
+    intro="A practical about page starter for the parts of the site that are more personal than portfolio-shaped."
+    canonicalPath="/about/"
+    currentPath="/about/"
+    navGroups={navGroups}>
+    <HeroPanel
+        slot="heroPanel"
+        image={site.portrait}
+        alt="Ben Børilden"
+        title={site.role}
+        text="Chemistry by education, process engineering by workday, and website tinkering by stubborn curiosity."
+    />
+
+    <ContentSection heading="Short Version">
+        <div class="content-prose">
+            <p>
+                I am Ben Børilden, a Process Engineer with a chemistry background
+                and a long list of side interests. This website is where those
+                interests can become something more durable than scattered files,
+                bookmarks, and half-finished ideas.
+            </p>
+
+            <p>
+                The main threads are photography, computer-related experiments,
+                gaming, and whatever I learn while turning this static site into a
+                more maintainable Astro project.
+            </p>
+        </div>
+    </ContentSection>
+
+    <ContentSection heading="At A Glance">
+        <StatGrid items={stats} />
+    </ContentSection>
+
+    <TaggedWritingSection
+        tags={pageWritingTags.about}
+        heading="Personal Notes"
+        intro="Writing tagged with Personal, About, Chemistry, or Process Engineering will show up here."
+        emptyText="No personal notes have been published yet."
+    />
+
+    <PageFooterNav
+        links={[
+            { label: "Resume / CV", href: "/resume/" },
+            { label: "Links", href: "/links/" },
+            { label: "Writing", href: "/writing/" },
+        ]}
+    />
+</Layout>

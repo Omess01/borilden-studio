@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../Layout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import ContentSection from "../../components/ContentSection.astro";
+import { navGroups } from "../../data/navigation";
+
+const posts = (await getCollection("writing", ({ data }) => !data.draft))
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+    .map((post) => ({
+        title: post.data.title,
+        description: post.data.description,
+        href: `/writing/${post.id}/`,
+        meta: new Intl.DateTimeFormat("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+        }).format(post.data.pubDate),
+        image: post.data.heroImage,
+        tags: post.data.tags,
+    }));
+---
+
+<Layout
+    title="Writing"
+    pageTitle="Writing"
+    eyebrow="Notes"
+    description="Notes, project logs, and writing from Børilden Studio."
+    intro="A place for project logs, photography reflections, homelab notes, and anything that wants more room than a card."
+    canonicalPath="/writing/"
+    currentPath="/writing/"
+    navGroups={navGroups}>
+    <ContentSection heading="All Published Posts">
+        <CardGrid
+            items={posts}
+            variant="link"
+            emptyText="No writing has been published yet."
+        />
+    </ContentSection>
+</Layout>

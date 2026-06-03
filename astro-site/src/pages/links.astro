@@ -1,0 +1,54 @@
+---
+import Layout from "../Layout.astro";
+import LinkList from "../components/LinkList.astro";
+import TaggedWritingSection from "../components/TaggedWritingSection.astro";
+import { pageWritingTags } from "../data/pageTags";
+import { featuredLinks, onlineLinks, studioLinks } from "../data/socialLinks";
+import { site } from "../data/site";
+
+const linkSections = [
+    { heading: "Find Me Online", links: onlineLinks },
+    { heading: "Featured", links: featuredLinks },
+    { heading: "Børilden Studio", links: studioLinks },
+];
+---
+
+<Layout
+    title="Links"
+    description="Official link hub for Ben Børilden and Børilden Studio."
+    canonicalPath="/links/"
+    currentPath="/links/"
+    showHeader={false}
+    showHero={false}
+    shellClass="links-shell">
+    <div class="links-page">
+        <section class="links-intro" aria-labelledby="page-title">
+            <img
+                class="links-avatar"
+                src={site.portrait}
+                alt={site.owner}
+                width="160"
+                height="160"
+                loading="eager"
+                decoding="async"
+            />
+
+            <h1 id="page-title">{site.owner}</h1>
+
+            <p class="links-bio">{site.role}</p>
+
+            <a class="bio-link bio-link-primary" href="/">
+                Visit the Rest of My Website
+            </a>
+        </section>
+
+        <LinkList sections={linkSections} />
+
+        <TaggedWritingSection
+            tags={pageWritingTags.links}
+            heading="Studio Notes"
+            intro="Writing tagged with Links, Personal, or Studio will show up here."
+            emptyText="No link-hub notes have been published yet."
+        />
+    </div>
+</Layout>

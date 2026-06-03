@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../Layout.astro";
+import ContentSection from "../components/ContentSection.astro";
+import TaggedWritingSection from "../components/TaggedWritingSection.astro";
+import Timeline from "../components/Timeline.astro";
+import { navGroups } from "../data/navigation";
+import { pageWritingTags } from "../data/pageTags";
+
+const timelineEntries = (await getCollection("timeline"))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map((entry) => ({
+        title: entry.data.title,
+        description: entry.data.description,
+        date: entry.data.date,
+        tags: entry.data.tags,
+    }));
+---
+
+<Layout
+    title="Photography Journey"
+    pageTitle="Photography Journey"
+    eyebrow="Studio Work"
+    description="Photography and learning journey entries from Børilden Studio."
+    intro="A timeline for photography progress, website learning, and the small decisions that turn into a project over time."
+    canonicalPath="/journey/"
+    currentPath="/journey/"
+    navGroups={navGroups}>
+    <ContentSection heading="Timeline">
+        <Timeline items={timelineEntries} />
+    </ContentSection>
+
+    <TaggedWritingSection
+        tags={pageWritingTags.journey}
+        heading="Journey Notes"
+        intro="Published writing tagged with Journey, Photography, Learning, or Website will show up here."
+        emptyText="No journey notes have been published yet."
+    />
+</Layout>

@@ -1,17 +1,48 @@
 ---
-
+import Layout from "../Layout.astro";
+import CardGrid from "../components/CardGrid.astro";
+import ContentSection from "../components/ContentSection.astro";
+import HeroPanel from "../components/HeroPanel.astro";
+import { featuredProjects, interests } from "../data/home";
+import { navGroups } from "../data/navigation";
+import { site } from "../data/site";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout
+    title={site.name}
+    pageTitle={site.name}
+    eyebrow="Hello World"
+    description={site.description}
+    intro={`My name is Ben Børilden. I hold a Master's degree in chemistry from NMBU and currently working as a Process Engineer at GE HealthCare. I have a passion for well most thing computer-related, gaming, photography, and of course chemistry. Børilden Studio is my attempt at a project (my first project) where I share my photos, projects and maybe even my thoughts. Hopefully this will eventually grow to host my entire photography portfolio and maybe even a blog (if I have the balls for it), but for now it's just a place to share some things I'm working on and my progress on "learning" / vibe-coding my way through HTML, JavaScript and CSS. If you don't know me already, well grand that you found your way here, I hope you enjoy my/ChatGPT's work!`}
+    canonicalPath="/"
+    currentPath="/"
+    navGroups={navGroups}
+    showCredit>
+    <HeroPanel
+        slot="heroPanel"
+        image={site.portrait}
+        alt="Ben Børilden"
+        title="Ben Børilden"
+        text="A guy with waaay to much time on his hands and loves his side-quests."
+    />
+
+    <a slot="actions" class="button-link button-link-primary" href="/links/">
+        Links
+    </a>
+
+    <a slot="actions" class="button-link button-link-secondary" href="/portfolio/">
+        View Portfolio
+    </a>
+
+    <ContentSection
+        heading="My Main Interests"
+        intro="The main lanes this site is slowly growing into.">
+        <CardGrid items={interests} />
+    </ContentSection>
+
+    <ContentSection
+        heading="Featured Projects"
+        intro="A few active or future ideas that can become full Astro pages as they grow.">
+        <CardGrid items={featuredProjects} />
+    </ContentSection>
+</Layout>

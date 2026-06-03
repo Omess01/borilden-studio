@@ -1,0 +1,75 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../Layout.astro";
+import PageFooterNav from "../../components/PageFooterNav.astro";
+import TaggedWritingSection from "../../components/TaggedWritingSection.astro";
+import { navGroups } from "../../data/navigation";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("writing", ({ data }) => !data.draft);
+
+    return posts.map((post) => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+}).format(post.data.pubDate);
+---
+
+<Layout
+    title={post.data.title}
+    pageTitle={post.data.title}
+    eyebrow="Writing"
+    description={post.data.description}
+    intro={post.data.description}
+    canonicalPath={`/writing/${post.id}/`}
+    currentPath="/writing/"
+    navGroups={navGroups}>
+    {
+        post.data.heroImage && (
+            <aside slot="heroPanel" class="hero-panel">
+                <img
+                    src={post.data.heroImage.src}
+                    alt={post.data.heroImage.alt}
+                    loading="eager"
+                    decoding="async"
+                />
+                {
+                    post.data.heroImage.caption && (
+                        <div class="hero-panel-body">
+                            <p>{post.data.heroImage.caption}</p>
+                        </div>
+                    )
+                }
+            </aside>
+        )
+    }
+
+    <article class="content-prose">
+        <div class="content-meta">
+            <span class="card-meta">{formattedDate}</span>
+            {post.data.tags.map((tag) => <span class="card-meta">{tag}</span>)}
+        </div>
+
+        <Content />
+    </article>
+
+    <TaggedWritingSection
+        tags={post.data.tags}
+        heading="Related Posts"
+        intro="Other published writing with matching tags will show up here."
+        emptyText="No related posts have been published yet."
+        excludeId={post.id}
+        limit={3}
+    />
+
+    <PageFooterNav links={[{ label: "Back to Writing", href: "/writing/" }]} />
+</Layout>
