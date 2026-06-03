@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gaming Profiles | Børilden Studio</title><meta name="description" content="Gaming profiles, favorite games, and gaming notes for Ben Børilden."><link rel="canonical" href="https://borildenstudio.no/gaming/"><link rel="icon" type="image/png" href="/assets/images/logo.png"><meta property="og:title" content="Gaming Profiles | Børilden Studio"><meta property="og:description" content="Gaming profiles, favorite games, and gaming notes for Ben Børilden."><meta property="og:url" content="https://borildenstudio.no/gaming/"><meta property="og:type" content="website"><meta property="og:site_name" content="Børilden Studio"><meta property="og:image" content="https://borildenstudio.no/assets/images/logo.png"><link rel="stylesheet" href="/assets/css/styles.css"><link rel="stylesheet" href="/assets/css/page.css"><style>.skip-link{position:fixed;top:1rem;left:1rem;z-index:1001;padding:.65rem .9rem;border-radius:999px;background:var(--card-bg);color:var(--text);box-shadow:var(--shadow);transform:translateY(-140%)}.skip-link:focus{transform:translateY(0)}.page-hero-single{grid-template-columns:minmax(0,1fr)}.content-prose{max-width:780px}.content-prose :where(h2,h3){margin-top:2rem}.content-prose :where(p,ul,ol,blockquote,pre){margin-bottom:1.2rem}.content-prose :where(ul,ol){padding-left:1.3rem;opacity:.85}.content-prose img{display:block;width:100%;height:auto;margin:1.5rem 0;border-radius:var(--radius);box-shadow:var(--shadow)}.content-prose blockquote{padding:1rem 1.25rem;border-left:4px solid var(--accent);border-radius:var(--radius);background:#48bfb814}.content-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}.empty-state{padding:1.5rem;border-radius:var(--radius);background:#48bfb814;color:var(--text)}.template-note{margin-top:1rem;opacity:.65;font-size:.9rem}@media(max-width:700px){.theme-toggle{width:44px;height:44px}}
+</style></head> <body class> <a class="skip-link" href="#content">Skip to content</a> <button type="button" class="theme-toggle" id="toggleTheme" title="Switch to light mode" aria-label="Switch to light mode">
+🌓
+</button> <div class="container page-shell"> <header class="site-header"> <a class="brand-link" href="/" aria-label="Børilden Studio home"> <img id="brandLogo" src="/assets/images/logo_white_text.png" data-dark-src="/assets/images/logo_white_text.png" data-light-src="/assets/images/logo.png" alt="Børilden Studio" width="170" height="170" decoding="async"> </a> <nav class="studio-nav" aria-label="Site navigation"> <details> <summary>Who Am I?</summary> <div class="studio-nav-menu"> <a href="/about/"> About </a><a href="/resume/"> Resume / CV </a><a href="/links/"> Links </a><a href="/writing/"> Writing </a><a href="/gaming/" aria-current="page"> Gaming Profiles </a> </div> </details><details> <summary>Studio Work</summary> <div class="studio-nav-menu"> <a href="/journey/"> Photography Journey </a><a href="/portfolio/"> Portfolio </a><a href="/albums/"> Albums </a> </div> </details><details> <summary>Homelab</summary> <div class="studio-nav-menu"> <a href="/tools/"> Tools </a><a href="/infrastructure/"> Current Setup </a> </div> </details> </nav> </header> <section class="page-hero page-hero-single" aria-labelledby="page-title"> <div> <p class="page-kicker">Who Am I?</p> <h1 id="page-title">Gaming Profiles</h1> <p>A simple page for the gaming side of the site.</p>  </div>  </section> <main id="content">  <section class="page-section" aria-labelledby="profiles"> <h2 id="profiles">Profiles</h2>   <div class="feature-grid"><a class="feature-card" href="#"><div class="feature-card-body card-body"><h3>Steam</h3><p>Add your Steam profile, favorite games, or screenshots here.</p></div></a><article class="feature-card"><div class="feature-card-body card-body"><h3>Competitive / Ranked</h3><p>A place for rank history, main games, or current goals.</p></div></article><article class="feature-card"><div class="feature-card-body card-body"><h3>Favorite Games</h3><p>Use this as a running list or turn each game into its own note later.</p></div></article></div>  </section> <section class="page-section" aria-labelledby="gaming-notes"> <h2 id="gaming-notes">Gaming Notes</h2> <p class="section-intro">Published writing tagged with Gaming will show up here automatically.</p> <p class="empty-state">No gaming posts have been published yet.</p> </section>  </main> <footer class="footer"> <p>Ben Børilden</p> <p> <a href="mailto:post@borildenstudio.no">
+post@borildenstudio.no
+</a> </p> <p>© <span id="year">2026</span> Børilden Studio</p>   </footer> </div> <script>
+            const root = document.documentElement;
+
+            const yearElement = document.getElementById("year");
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+
+            const navDetails = Array.from(document.querySelectorAll(".studio-nav details"));
+
+            if (navDetails.length > 0) {
+                const closeAllNavDetails = () => {
+                    navDetails.forEach((detail) => {
+                        detail.open = false;
+                    });
+                };
+
+                document.addEventListener("click", (event) => {
+                    const clickedInsideNav =
+                        event.target instanceof Element
+                        && event.target.closest(".studio-nav");
+
+                    if (!clickedInsideNav) {
+                        closeAllNavDetails();
+                    }
+                });
+
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape") {
+                        closeAllNavDetails();
+                    }
+                });
+            }
+
+            const toggleTheme = document.getElementById("toggleTheme");
+            const brandLogo = document.getElementById("brandLogo");
+
+            const getStoredTheme = () => {
+                try {
+                    return localStorage.getItem("theme");
+                } catch {
+                    return null;
+                }
+            };
+
+            const storeTheme = (theme) => {
+                try {
+                    localStorage.setItem("theme", theme);
+                } catch {
+                    // Keep the toggle working when localStorage is unavailable.
+                }
+            };
+
+            const updateThemeControl = (theme) => {
+                if (!toggleTheme) {
+                    return;
+                }
+
+                const label =
+                    theme === "dark"
+                        ? "Switch to light mode"
+                        : "Switch to dark mode";
+
+                toggleTheme.setAttribute("aria-label", label);
+                toggleTheme.setAttribute("title", label);
+            };
+
+            const updateBrandLogo = (theme) => {
+                if (!brandLogo) {
+                    return;
+                }
+
+                const nextLogo =
+                    theme === "dark"
+                        ? brandLogo.dataset.darkSrc
+                        : brandLogo.dataset.lightSrc;
+
+                if (nextLogo && brandLogo.getAttribute("src") !== nextLogo) {
+                    brandLogo.setAttribute("src", nextLogo);
+                }
+            };
+
+            const setTheme = (theme) => {
+                root.setAttribute("data-theme", theme);
+                updateThemeControl(theme);
+                updateBrandLogo(theme);
+            };
+
+            const prefersLightTheme =
+                window.matchMedia
+                && window.matchMedia("(prefers-color-scheme: light)").matches;
+
+            const storedTheme = getStoredTheme();
+
+            const initialTheme =
+                storedTheme === "dark" || storedTheme === "light"
+                    ? storedTheme
+                    : (prefersLightTheme ? "light" : "dark");
+
+            setTheme(initialTheme);
+
+            if (toggleTheme) {
+                toggleTheme.addEventListener("click", () => {
+                    const currentTheme = root.getAttribute("data-theme");
+
+                    const nextTheme =
+                        currentTheme === "dark"
+                            ? "light"
+                            : "dark";
+
+                    setTheme(nextTheme);
+                    storeTheme(nextTheme);
+                });
+            }
+        </script> </body> </html>
