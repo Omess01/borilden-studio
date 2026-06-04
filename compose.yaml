@@ -2,14 +2,16 @@
 services:
   borildenstudio:
     image: nginx:1-alpine
-    container_name: borilden-studio
     restart: unless-stopped
 
     volumes:
-      - ./astro-site/dist/:/usr/share/nginx/html
+      - /mnt/HDDs/Applications/borilden-studio/astro-site/dist:/usr/share/nginx/html:ro
 
     networks:
-      - caddy_net
+      caddy_net:
+        aliases:
+          - borildenstudio
+          - borilden-studio
 
 networks:
   caddy_net:
