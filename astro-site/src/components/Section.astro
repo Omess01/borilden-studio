@@ -1,0 +1,50 @@
+---
+interface Props {
+    heading?: string;
+    intro?: string;
+    eyebrow?: string;
+    id?: string;
+    className?: string;
+    variant?: "default" | "compact" | "spacious";
+    headingLevel?: "h2" | "h3";
+}
+
+const {
+    heading,
+    intro,
+    eyebrow,
+    id,
+    className = "",
+    variant = "default",
+    headingLevel = "h2",
+} = Astro.props;
+
+const generatedId = heading
+    ?.toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+const headingId = id ? `${id}-title` : generatedId;
+
+const Heading = headingLevel;
+const hasActions = Astro.slots.has("actions");
+---
+
+<section
+    id={id}
+    class:list={["ui-section", `ui-section-${variant}`, className]}
+    aria-labelledby={heading && headingId ? headingId : undefined}>
+    {eyebrow && <p class="ui-section-eyebrow">{eyebrow}</p>}
+    {heading && headingId && <Heading id={headingId}>{heading}</Heading>}
+    {intro && <p class="ui-section-intro">{intro}</p>}
+
+    {
+        hasActions && (
+            <div class="ui-section-actions">
+                <slot name="actions" />
+            </div>
+        )
+    }
+
+    <slot />
+</section>

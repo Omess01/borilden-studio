@@ -1,0 +1,37 @@
+---
+interface Props {
+    quote: string;
+    name?: string;
+    role?: string;
+    image?: {
+        src: string;
+        alt: string;
+    };
+    className?: string;
+}
+
+const {
+    quote,
+    name,
+    role,
+    image,
+    className = "",
+} = Astro.props;
+---
+
+<figure class:list={["ui-testimonial", className]}>
+    {image && <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />}
+
+    <blockquote>
+        <p>{quote}</p>
+    </blockquote>
+
+    {
+        (name || role) && (
+            <figcaption>
+                {name && <strong>{name}</strong>}
+                {role && <span>{role}</span>}
+            </figcaption>
+        )
+    }
+</figure>

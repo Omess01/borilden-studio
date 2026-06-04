@@ -1,0 +1,60 @@
+---
+interface Props {
+    targetSelector?: string;
+}
+
+const {
+    targetSelector = ".content-prose",
+} = Astro.props;
+---
+
+<div class="reading-progress" data-reading-progress data-target-selector={targetSelector} aria-hidden="true">
+    <span class="reading-progress-bar"></span>
+</div>
+
+<script is:inline>
+    document.querySelectorAll("[data-reading-progress]").forEach((progress) => {
+        if (progress.dataset.progressReady === "true") {
+            return;
+        }
+
+        progress.dataset.progressReady = "true";
+
+        const bar = progress.querySelector(".reading-progress-bar");
+        const targetSelector = progress.dataset.targetSelector || ".content-prose";
+        const target = document.querySelector(targetSelector);
+
+        if (!bar || !target) {
+            progress.hidden = true;
+            return;
+        }
+
+        let ticking = false;
+
+        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+        const updateProgress = () => {
+            const targetTop = window.scrollY + target.getBoundingClientRect().top;
+            const targetHeight = target.scrollHeight;
+            const scrollEnd = targetTop + targetHeight - window.innerHeight;
+            const scrollRange = Math.max(scrollEnd - targetTop, 1);
+            const value = clamp((window.scrollY - targetTop) / scrollRange, 0, 1);
+
+            bar.style.transform = `scaleX(${value})`;
+            ticking = false;
+        };
+
+        const requestUpdate = () => {
+            if (ticking) {
+                return;
+            }
+
+            ticking = true;
+            window.requestAnimationFrame(updateProgress);
+        };
+
+        requestUpdate();
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
+    });
+</script>

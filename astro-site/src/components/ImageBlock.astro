@@ -1,0 +1,35 @@
+---
+interface Props {
+    src: string;
+    alt: string;
+    caption?: string;
+    href?: string;
+    aspectRatio?: "auto" | "wide" | "square" | "portrait";
+    loading?: "lazy" | "eager";
+    className?: string;
+}
+
+const {
+    src,
+    alt,
+    caption,
+    href,
+    aspectRatio = "auto",
+    loading = "lazy",
+    className = "",
+} = Astro.props;
+---
+
+<figure class:list={["ui-image-block", `ui-image-block-${aspectRatio}`, className]}>
+    {
+        href ? (
+            <a href={href}>
+                <img src={src} alt={alt} loading={loading} decoding="async" />
+            </a>
+        ) : (
+            <img src={src} alt={alt} loading={loading} decoding="async" />
+        )
+    }
+
+    {caption && <figcaption>{caption}</figcaption>}
+</figure>

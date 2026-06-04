@@ -22,6 +22,7 @@ const {
     items,
     variant = "feature",
     emptyText = "Nothing has been added here yet.",
+    showTags = false,
 } = Astro.props;
 
 const gridClass = `${variant}-grid`;
@@ -52,7 +53,7 @@ const cardClass = `${variant}-card`;
                                 {item.description && <p>{item.description}</p>}
 
                                 {
-                                    false && item.tags && item.tags.length > 0 && (
+                                    showTags && item.tags && item.tags.length > 0 && (
                                         <div class="tag-list">
                                             {item.tags.map((tag) => <span>{tag}</span>)}
                                         </div>
@@ -79,7 +80,7 @@ const cardClass = `${variant}-card`;
                                 {item.description && <p>{item.description}</p>}
 
                                 {
-                                    false && item.tags && item.tags.length > 0 && (
+                                    showTags && item.tags && item.tags.length > 0 && (
                                         <div class="tag-list">
                                             {item.tags.map((tag) => <span>{tag}</span>)}
                                         </div>

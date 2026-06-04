@@ -1,0 +1,29 @@
+---
+interface Props {
+    variant?: "primary" | "secondary" | "ghost" | "quiet";
+    size?: "small" | "default" | "large";
+    type?: "button" | "submit" | "reset";
+    disabled?: boolean;
+    className?: string;
+    ariaLabel?: string;
+}
+
+const {
+    variant = "secondary",
+    size = "default",
+    type = "button",
+    disabled = false,
+    className = "",
+    ariaLabel,
+    ...attrs
+} = Astro.props;
+---
+
+<button
+    class:list={["ui-button", `ui-button-${variant}`, `ui-button-${size}`, className]}
+    type={type}
+    disabled={disabled}
+    aria-label={ariaLabel}
+    {...attrs}>
+    <slot />
+</button>

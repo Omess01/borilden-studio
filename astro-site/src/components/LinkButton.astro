@@ -1,0 +1,30 @@
+---
+interface Props {
+    href: string;
+    variant?: "primary" | "secondary" | "ghost" | "quiet";
+    size?: "small" | "default" | "large";
+    external?: boolean;
+    className?: string;
+    ariaLabel?: string;
+}
+
+const {
+    href,
+    variant = "secondary",
+    size = "default",
+    external = false,
+    className = "",
+    ariaLabel,
+    ...attrs
+} = Astro.props;
+---
+
+<a
+    class:list={["ui-button", `ui-button-${variant}`, `ui-button-${size}`, className]}
+    href={href}
+    target={external ? "_blank" : undefined}
+    rel={external ? "noopener noreferrer" : undefined}
+    aria-label={ariaLabel}
+    {...attrs}>
+    <slot />
+</a>

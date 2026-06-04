@@ -1,0 +1,21 @@
+---
+interface Props {
+    as?: "div" | "section" | "article" | "main";
+    size?: "default" | "narrow" | "wide" | "full";
+    id?: string;
+    className?: string;
+}
+
+const {
+    as = "div",
+    size = "default",
+    id,
+    className = "",
+} = Astro.props;
+
+const Element = as;
+---
+
+<Element id={id} class:list={["ui-container", `ui-container-${size}`, className]}>
+    <slot />
+</Element>

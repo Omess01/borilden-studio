@@ -1,0 +1,81 @@
+---
+type CardImage = {
+    src: string;
+    alt: string;
+};
+
+interface Props {
+    title?: string;
+    description?: string;
+    href?: string;
+    meta?: string;
+    image?: CardImage;
+    tags?: string[];
+    variant?: "default" | "compact" | "media";
+    className?: string;
+}
+
+const {
+    title,
+    description,
+    href,
+    meta,
+    image,
+    tags = [],
+    variant = "default",
+    className = "",
+} = Astro.props;
+
+const classes = ["ui-card", `ui-card-${variant}`, { "ui-card-link": Boolean(href) }, className];
+const hasBody = title || description || meta || tags.length > 0 || Astro.slots.has("default");
+---
+
+{
+    href ? (
+        <a class:list={classes} href={href}>
+            {image && <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />}
+
+            {
+                hasBody && (
+                    <div class="ui-card-body">
+                        {meta && <span class="card-meta">{meta}</span>}
+                        {title && <h3>{title}</h3>}
+                        {description && <p>{description}</p>}
+                        <slot />
+
+                        {
+                            tags.length > 0 && (
+                                <div class="tag-list">
+                                    {tags.map((tag) => <span>{tag}</span>)}
+                                </div>
+                            )
+                        }
+                    </div>
+                )
+            }
+        </a>
+    ) : (
+        <article class:list={classes}>
+            {image && <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />}
+
+            {
+                hasBody && (
+                    <div class="ui-card-body">
+                        {meta && <span class="card-meta">{meta}</span>}
+                        {title && <h3>{title}</h3>}
+                        {description && <p>{description}</p>}
+                        <slot />
+
+                        {
+                            tags.length > 0 && (
+                                <div class="tag-list">
+                                    {tags.map((tag) => <span>{tag}</span>)}
+                                </div>
+                            )
+                        }
+                    </div>
+                )
+            }
+        </article>
+    )
+}

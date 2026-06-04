@@ -1,0 +1,36 @@
+---
+interface Props {
+    title: string;
+    intro?: string;
+    eyebrow?: string;
+    align?: "start" | "center";
+    headingLevel?: "h1" | "h2";
+    className?: string;
+}
+
+const {
+    title,
+    intro,
+    eyebrow,
+    align = "start",
+    headingLevel = "h1",
+    className = "",
+} = Astro.props;
+
+const Heading = headingLevel;
+const hasActions = Astro.slots.has("actions");
+---
+
+<header class:list={["ui-page-header", `ui-page-header-${align}`, className]}>
+    {eyebrow && <p class="ui-page-header-eyebrow">{eyebrow}</p>}
+    <Heading>{title}</Heading>
+    {intro && <p>{intro}</p>}
+
+    {
+        hasActions && (
+            <div class="ui-page-header-actions">
+                <slot name="actions" />
+            </div>
+        )
+    }
+</header>

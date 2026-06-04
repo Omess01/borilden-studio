@@ -1,0 +1,265 @@
+---
+import Accordion from "../components/Accordion.astro";
+import Card from "../components/Card.astro";
+import CTA from "../components/CTA.astro";
+import ContactForm from "../components/ContactForm.astro";
+import ImageBlock from "../components/ImageBlock.astro";
+import Layout from "../Layout.astro";
+import LinkButton from "../components/LinkButton.astro";
+import PageFooterNav from "../components/PageFooterNav.astro";
+import Section from "../components/Section.astro";
+import Tag from "../components/Tag.astro";
+
+const quickLinks = [
+    { label: "Overview", href: "#overview" },
+    { label: "Details", href: "#details" },
+    { label: "Contact", href: "#contact" },
+];
+
+const featureCards = [
+    {
+        title: "Fast To Scan",
+        description: "Keep the most important message visible before the first scroll.",
+    },
+    {
+        title: "Easy To Tap",
+        description: "Use large controls, predictable spacing, and one clear action per section.",
+    },
+    {
+        title: "Kind To Slow Networks",
+        description: "Lazy-load secondary images and avoid heavy decorative assets.",
+    },
+];
+
+const faqItems = [
+    {
+        title: "What should go first?",
+        content: "Lead with the result, service, article topic, or tool action the visitor came for.",
+        open: true,
+    },
+    {
+        title: "How much text is enough?",
+        content: "Use short paragraphs, clear headings, and progressive disclosure for supporting detail.",
+    },
+    {
+        title: "What should be sticky?",
+        content: "Only keep a small primary action sticky when it helps the page goal.",
+    },
+];
+---
+
+<Layout
+    title="Mobile Page Template"
+    pageTitle="Mobile Page Template"
+    eyebrow="Template"
+    description="A mobile-first Astro page template for Børilden Studio."
+    intro="Copy this file, rename it, and replace the sample content with the page you want to build."
+    canonicalPath="/mobile-page-template/"
+    currentPath="/"
+    bodyClass="mobile-template-page">
+    <div slot="actions">
+        <LinkButton href="#contact" variant="primary">Primary Action</LinkButton>
+        <LinkButton href="#overview" variant="secondary">Explore</LinkButton>
+    </div>
+
+    <aside slot="heroPanel" class="mobile-template-panel">
+        <ImageBlock
+            src="/assets/images/logo.png"
+            alt="Børilden Studio logo"
+            aspectRatio="square"
+            loading="eager"
+        />
+    </aside>
+
+    <nav class="mobile-template-jump-nav" aria-label="Page sections">
+        {
+            quickLinks.map((link) => (
+                <a href={link.href}>{link.label}</a>
+            ))
+        }
+    </nav>
+
+    <Section
+        id="overview"
+        heading="Overview"
+        intro="Use this section for the shortest possible explanation of the page. On mobile, visitors should understand the offer, topic, or action without hunting.">
+        <div class="mobile-template-card-grid">
+            {
+                featureCards.map((card) => (
+                    <Card
+                        title={card.title}
+                        description={card.description}
+                        variant="compact"
+                    />
+                ))
+            }
+        </div>
+    </Section>
+
+    <Section
+        id="details"
+        heading="Details"
+        intro="Move supporting information into collapsible blocks when it is useful but not essential at first glance.">
+        <Accordion items={faqItems} allowMultiple={false} />
+    </Section>
+
+    <Section
+        heading="Signals"
+        intro="Tags are useful for categories, status, technology, audience, or page metadata.">
+        <div class="mobile-template-tags">
+            <Tag label="Mobile-first" tone="accent" />
+            <Tag label="Fast" tone="highlight" />
+            <Tag label="Accessible" tone="default" />
+            <Tag label="Reusable" tone="secondary" />
+        </div>
+    </Section>
+
+    <CTA
+        title="Ready For The Next Step?"
+        text="Keep this block short and action-oriented. It should be clear what happens when the visitor taps the button."
+        variant="highlight">
+        <LinkButton slot="actions" href="#contact" variant="primary">Contact Me</LinkButton>
+    </CTA>
+
+    <Section
+        id="contact"
+        heading="Contact"
+        intro="For production pages, connect this form to the handler or service you use.">
+        <ContactForm action="/contact/" submitLabel="Send Message" />
+    </Section>
+
+    <PageFooterNav links={[{ label: "Back Home", href: "/" }]} />
+
+    <div class="mobile-template-sticky-action" aria-label="Primary page action">
+        <LinkButton href="#contact" variant="primary">Contact Me</LinkButton>
+    </div>
+</Layout>
+
+<style is:global>
+    .mobile-template-page .page-hero {
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .mobile-template-page .page-hero h1 {
+        max-width: 680px;
+    }
+
+    .mobile-template-panel {
+        padding: 1rem;
+    }
+
+    .mobile-template-panel .ui-image-block {
+        margin: 0;
+    }
+
+    .mobile-template-panel .ui-image-block img {
+        max-width: 220px;
+        margin: 0 auto;
+        box-shadow: none;
+    }
+
+    .mobile-template-jump-nav {
+        position: sticky;
+        z-index: 20;
+        top: 0;
+
+        display: flex;
+        gap: 0.55rem;
+
+        margin-bottom: 2rem;
+        padding: 0.5rem 0;
+        overflow-x: auto;
+
+        background: var(--bg);
+        scrollbar-width: none;
+    }
+
+    .mobile-template-jump-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-template-jump-nav a {
+        flex: 0 0 auto;
+
+        min-height: 40px;
+        padding: 0.55rem 0.8rem;
+
+        border-radius: 999px;
+        border: 1px solid rgba(72, 191, 184, 0.14);
+
+        background: rgba(72, 191, 184, 0.08);
+        color: var(--text);
+
+        font-size: 0.9rem;
+    }
+
+    .mobile-template-jump-nav a:hover {
+        background: rgba(72, 191, 184, 0.16);
+    }
+
+    .mobile-template-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+    }
+
+    .mobile-template-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .mobile-template-sticky-action {
+        display: none;
+    }
+
+    @media (max-width: 700px) {
+        .mobile-template-page .page-shell {
+            padding-bottom: 5.5rem;
+        }
+
+        .mobile-template-page .page-hero {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-template-page .page-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .mobile-template-page .page-actions .ui-button {
+            width: 100%;
+        }
+
+        .mobile-template-page .ui-section {
+            margin-bottom: 3rem;
+        }
+
+        .mobile-template-card-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .mobile-template-sticky-action {
+            position: fixed;
+            z-index: 998;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            display: block;
+
+            padding: 0.75rem 1rem max(0.75rem, env(safe-area-inset-bottom));
+
+            border-top: 1px solid rgba(72, 191, 184, 0.14);
+
+            background: var(--card-bg);
+
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .mobile-template-sticky-action .ui-button {
+            width: 100%;
+        }
+    }
+</style>

@@ -1,0 +1,65 @@
+---
+type PaginationLink = {
+    label: string;
+    href: string;
+    current?: boolean;
+};
+
+interface Props {
+    previous?: PaginationLink;
+    next?: PaginationLink;
+    pages?: PaginationLink[];
+    label?: string;
+    className?: string;
+}
+
+const {
+    previous,
+    next,
+    pages = [],
+    label = "Pagination",
+    className = "",
+} = Astro.props;
+---
+
+<nav class:list={["ui-pagination", className]} aria-label={label}>
+    {
+        previous ? (
+            <a class="ui-pagination-edge" href={previous.href} rel="prev">
+                {previous.label}
+            </a>
+        ) : (
+            <span class="ui-pagination-edge is-disabled" aria-hidden="true">Previous</span>
+        )
+    }
+
+    {
+        pages.length > 0 && (
+            <ol class="ui-pagination-pages">
+                {
+                    pages.map((page) => (
+                        <li>
+                            {
+                                page.current ? (
+                                    <span aria-current="page">{page.label}</span>
+                                ) : (
+                                    <a href={page.href}>{page.label}</a>
+                                )
+                            }
+                        </li>
+                    ))
+                }
+            </ol>
+        )
+    }
+
+    {
+        next ? (
+            <a class="ui-pagination-edge" href={next.href} rel="next">
+                {next.label}
+            </a>
+        ) : (
+            <span class="ui-pagination-edge is-disabled" aria-hidden="true">Next</span>
+        )
+    }
+</nav>

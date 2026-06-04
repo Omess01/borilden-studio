@@ -1,0 +1,55 @@
+---
+interface Props {
+    action?: string;
+    method?: "get" | "post";
+    nameLabel?: string;
+    emailLabel?: string;
+    messageLabel?: string;
+    submitLabel?: string;
+    includeSubject?: boolean;
+    className?: string;
+}
+
+const {
+    action = "",
+    method = "post",
+    nameLabel = "Name",
+    emailLabel = "Email",
+    messageLabel = "Message",
+    submitLabel = "Send",
+    includeSubject = true,
+    className = "",
+} = Astro.props;
+---
+
+<form class:list={["ui-contact-form", className]} action={action} method={method}>
+    <div class="ui-form-grid">
+        <label>
+            <span>{nameLabel}</span>
+            <input type="text" name="name" autocomplete="name" required />
+        </label>
+
+        <label>
+            <span>{emailLabel}</span>
+            <input type="email" name="email" autocomplete="email" required />
+        </label>
+    </div>
+
+    {
+        includeSubject && (
+            <label>
+                <span>Subject</span>
+                <input type="text" name="subject" autocomplete="off" />
+            </label>
+        )
+    }
+
+    <label>
+        <span>{messageLabel}</span>
+        <textarea name="message" rows="7" required></textarea>
+    </label>
+
+    <input class="visually-hidden" type="text" name="website" tabindex="-1" autocomplete="off" />
+
+    <button class="ui-button ui-button-primary" type="submit">{submitLabel}</button>
+</form>

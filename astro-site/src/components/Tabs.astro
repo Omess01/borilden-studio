@@ -1,0 +1,117 @@
+---
+type TabItem = {
+    label: string;
+    content?: string;
+    id?: string;
+};
+
+interface Props {
+    items: TabItem[];
+    activeIndex?: number;
+    className?: string;
+}
+
+const {
+    items,
+    activeIndex = 0,
+    className = "",
+} = Astro.props;
+
+const componentId = `tabs-${Math.random().toString(36).slice(2)}`;
+const normalizedActiveIndex = Math.min(Math.max(activeIndex, 0), Math.max(items.length - 1, 0));
+---
+
+{
+    items.length > 0 && (
+        <div class:list={["ui-tabs", className]} data-tabs>
+            <div class="ui-tab-list" role="tablist">
+                {
+                    items.map((item, index) => {
+                        const tabId = `${componentId}-${item.id ?? index}`;
+                        const isActive = index === normalizedActiveIndex;
+
+                        return (
+                            <button
+                                id={`${tabId}-tab`}
+                                class:list={["ui-tab", { "is-active": isActive }]}
+                                type="button"
+                                role="tab"
+                                aria-selected={String(isActive)}
+                                aria-controls={`${tabId}-panel`}
+                                tabindex={isActive ? "0" : "-1"}>
+                                {item.label}
+                            </button>
+                        );
+                    })
+                }
+            </div>
+
+            {
+                items.map((item, index) => {
+                    const tabId = `${componentId}-${item.id ?? index}`;
+                    const isActive = index === normalizedActiveIndex;
+
+                    return (
+                        <section
+                            id={`${tabId}-panel`}
+                            class:list={["ui-tab-panel", { "is-active": isActive }]}
+                            role="tabpanel"
+                            aria-labelledby={`${tabId}-tab`}
+                            hidden={!isActive}>
+                            {item.content && <p>{item.content}</p>}
+                        </section>
+                    );
+                })
+            }
+        </div>
+    )
+}
+
+<script is:inline>
+    document.querySelectorAll("[data-tabs]").forEach((tabs) => {
+        if (tabs.dataset.tabsReady === "true") {
+            return;
+        }
+
+        tabs.dataset.tabsReady = "true";
+
+        const tabButtons = Array.from(tabs.querySelectorAll("[role='tab']"));
+        const panels = Array.from(tabs.querySelectorAll("[role='tabpanel']"));
+
+        const activateTab = (button) => {
+            const panelId = button.getAttribute("aria-controls");
+
+            tabButtons.forEach((tabButton) => {
+                const isActive = tabButton === button;
+                tabButton.classList.toggle("is-active", isActive);
+                tabButton.setAttribute("aria-selected", String(isActive));
+                tabButton.setAttribute("tabindex", isActive ? "0" : "-1");
+            });
+
+            panels.forEach((panel) => {
+                const isActive = panel.id === panelId;
+                panel.classList.toggle("is-active", isActive);
+                panel.hidden = !isActive;
+            });
+        };
+
+        tabButtons.forEach((button, index) => {
+            button.addEventListener("click", () => activateTab(button));
+
+            button.addEventListener("keydown", (event) => {
+                if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+                    return;
+                }
+
+                event.preventDefault();
+
+                const direction = event.key === "ArrowRight" ? 1 : -1;
+                const nextIndex = (index + direction + tabButtons.length) % tabButtons.length;
+                const nextButton = tabButtons[nextIndex];
+
+                nextButton.focus();
+                activateTab(nextButton);
+            });
+        });
+    });
+</script>

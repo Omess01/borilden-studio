@@ -1,0 +1,71 @@
+---
+type AccordionItem = {
+    title: string;
+    content?: string;
+    open?: boolean;
+};
+
+interface Props {
+    items?: AccordionItem[];
+    allowMultiple?: boolean;
+    className?: string;
+}
+
+const {
+    items = [],
+    allowMultiple = true,
+    className = "",
+} = Astro.props;
+---
+
+{
+    items.length > 0 ? (
+        <div
+            class:list={["ui-accordion", className]}
+            data-accordion
+            data-allow-multiple={String(allowMultiple)}>
+            {
+                items.map((item) => (
+                    <details class="ui-accordion-item" open={item.open}>
+                        <summary>{item.title}</summary>
+                        {item.content && <p>{item.content}</p>}
+                    </details>
+                ))
+            }
+        </div>
+    ) : (
+        <div
+            class:list={["ui-accordion", className]}
+            data-accordion
+            data-allow-multiple={String(allowMultiple)}>
+            <slot />
+        </div>
+    )
+}
+
+<script is:inline>
+    document.querySelectorAll("[data-accordion]").forEach((accordion) => {
+        if (accordion.dataset.accordionReady === "true") {
+            return;
+        }
+
+        accordion.dataset.accordionReady = "true";
+
+        accordion.addEventListener("toggle", (event) => {
+            const detail = event.target;
+            if (
+                !(detail instanceof HTMLDetailsElement)
+                || detail.open !== true
+                || accordion.dataset.allowMultiple === "true"
+            ) {
+                return;
+            }
+
+            accordion.querySelectorAll("details").forEach((sibling) => {
+                if (sibling !== detail) {
+                    sibling.open = false;
+                }
+            });
+        }, true);
+    });
+</script>

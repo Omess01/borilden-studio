@@ -1,0 +1,30 @@
+---
+interface Props {
+    label?: string;
+    href?: string;
+    tone?: "default" | "accent" | "highlight" | "secondary" | "muted";
+    className?: string;
+}
+
+const {
+    label,
+    href,
+    tone = "default",
+    className = "",
+} = Astro.props;
+
+const classes = ["ui-tag", `ui-tag-${tone}`, className];
+const hasLabel = typeof label === "string";
+---
+
+{
+    href ? (
+        <a class:list={classes} href={href}>
+            {hasLabel ? label : <slot />}
+        </a>
+    ) : (
+        <span class:list={classes}>
+            {hasLabel ? label : <slot />}
+        </span>
+    )
+}

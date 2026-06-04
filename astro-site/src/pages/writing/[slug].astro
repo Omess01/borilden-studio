@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../Layout.astro";
 import PageFooterNav from "../../components/PageFooterNav.astro";
+import ReadingProgress from "../../components/ReadingProgress.astro";
 import TaggedWritingSection from "../../components/TaggedWritingSection.astro";
 import { navGroups } from "../../data/navigation";
 
@@ -52,6 +53,8 @@ const formattedDate = new Intl.DateTimeFormat("en-GB", {
             </aside>
         )
     }
+
+    <ReadingProgress targetSelector=".content-prose" />
 
     <article class="content-prose">
         <div class="content-meta">

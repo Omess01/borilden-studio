@@ -1,0 +1,48 @@
+---
+type Feature = {
+    title: string;
+    description?: string;
+    meta?: string;
+    href?: string;
+};
+
+interface Props {
+    features: Feature[];
+    emptyText?: string;
+    variant?: "default" | "compact";
+    className?: string;
+}
+
+const {
+    features,
+    emptyText = "No features have been added yet.",
+    variant = "default",
+    className = "",
+} = Astro.props;
+---
+
+{
+    features.length > 0 ? (
+        <div class:list={["ui-feature-list", `ui-feature-list-${variant}`, className]}>
+            {
+                features.map((feature) =>
+                    feature.href ? (
+                        <a class="ui-feature-item" href={feature.href}>
+                            {feature.meta && <span class="card-meta">{feature.meta}</span>}
+                            <h3>{feature.title}</h3>
+                            {feature.description && <p>{feature.description}</p>}
+                        </a>
+                    ) : (
+                        <article class="ui-feature-item">
+                            {feature.meta && <span class="card-meta">{feature.meta}</span>}
+                            <h3>{feature.title}</h3>
+                            {feature.description && <p>{feature.description}</p>}
+                        </article>
+                    )
+                )
+            }
+        </div>
+    ) : (
+        <p class="empty-state">{emptyText}</p>
+    )
+}

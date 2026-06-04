@@ -1,0 +1,38 @@
+---
+interface Props {
+    title: string;
+    text?: string;
+    eyebrow?: string;
+    align?: "start" | "center";
+    variant?: "default" | "highlight";
+    className?: string;
+}
+
+const {
+    title,
+    text,
+    eyebrow,
+    align = "start",
+    variant = "default",
+    className = "",
+} = Astro.props;
+
+const hasActions = Astro.slots.has("actions");
+---
+
+<section class:list={["ui-cta", `ui-cta-${variant}`, `ui-cta-${align}`, className]}>
+    <div>
+        {eyebrow && <p class="ui-cta-eyebrow">{eyebrow}</p>}
+        <h2>{title}</h2>
+        {text && <p>{text}</p>}
+        <slot />
+    </div>
+
+    {
+        hasActions && (
+            <div class="ui-cta-actions">
+                <slot name="actions" />
+            </div>
+        )
+    }
+</section>
