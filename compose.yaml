@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
 
     volumes:
-      - ./site/:/usr/share/nginx/html
+      - ./astro-site/dist/:/usr/share/nginx/html
 
     networks:
       - caddy_net
