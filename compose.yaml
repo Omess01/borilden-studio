@@ -1,12 +1,11 @@
 ---
 services:
   borildenstudio:
-    image: nginx:1-alpine
+    build:
+      context: ./astro-site
+    image: borilden-studio:latest
     container_name: borilden-studio
     restart: unless-stopped
-
-    volumes:
-      - ./astro-site/dist/:/usr/share/nginx/html
 
     networks:
       - caddy_net
