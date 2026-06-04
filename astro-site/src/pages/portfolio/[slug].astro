@@ -64,7 +64,6 @@ const { Content } = await render(project);
     <article class="content-prose">
         <div class="content-meta">
             <span class="card-meta">{project.data.status}</span>
-            {project.data.tags.map((tag) => <span class="card-meta">{tag}</span>)}
         </div>
 
         <Content />
@@ -73,7 +72,7 @@ const { Content } = await render(project);
     <TaggedWritingSection
         tags={[...pageWritingTags.portfolio, ...project.data.tags]}
         heading="Related Writing"
-        intro="Published writing with matching project or portfolio tags will show up here."
+        intro="Related writing will show up here."
         emptyText="No related portfolio writing has been published yet."
     />
 

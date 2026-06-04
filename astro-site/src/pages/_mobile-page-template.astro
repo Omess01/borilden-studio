@@ -8,7 +8,6 @@ import Layout from "../Layout.astro";
 import LinkButton from "../components/LinkButton.astro";
 import PageFooterNav from "../components/PageFooterNav.astro";
 import Section from "../components/Section.astro";
-import Tag from "../components/Tag.astro";
 
 const quickLinks = [
     { label: "Overview", href: "#overview" },
@@ -103,17 +102,6 @@ const faqItems = [
         <Accordion items={faqItems} allowMultiple={false} />
     </Section>
 
-    <Section
-        heading="Signals"
-        intro="Tags are useful for categories, status, technology, audience, or page metadata.">
-        <div class="mobile-template-tags">
-            <Tag label="Mobile-first" tone="accent" />
-            <Tag label="Fast" tone="highlight" />
-            <Tag label="Accessible" tone="default" />
-            <Tag label="Reusable" tone="secondary" />
-        </div>
-    </Section>
-
     <CTA
         title="Ready For The Next Step?"
         text="Keep this block short and action-oriented. It should be clear what happens when the visitor taps the button."
@@ -202,12 +190,6 @@ const faqItems = [
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 1rem;
-    }
-
-    .mobile-template-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem;
     }
 
     .mobile-template-sticky-action {

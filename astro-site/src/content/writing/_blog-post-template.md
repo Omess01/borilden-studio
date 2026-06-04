@@ -6,6 +6,8 @@ draft: true
 tags:
   - Website
   - Notes
+# series: "Optional Series Name"
+# seriesOrder: 1
 heroImage:
   src: "/assets/images/logo.png"
   alt: "Børilden Studio logo"
@@ -25,6 +27,11 @@ Write the main thought, project update, tutorial, photo story, or homelab note.
 - Add things you want to improve later.
 
 Set `draft: false` when the post is ready to publish.
+
+For a series, keep the same `series` value on every post and increase
+`seriesOrder` for each part. Folder-based posts also work, for example:
+
+`content/writing/the-journey-to-100/0001-loosingweight.md`
 
 Tags also decide where the post appears as related content. For example:
 

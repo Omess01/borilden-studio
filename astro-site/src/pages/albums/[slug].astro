@@ -50,7 +50,6 @@ const photos = album.data.photos.map((photo) => ({
     <article class="content-prose">
         <div class="content-meta">
             {album.data.location && <span class="card-meta">{album.data.location}</span>}
-            {album.data.tags.map((tag) => <span class="card-meta">{tag}</span>)}
         </div>
 
         <Content />
@@ -69,7 +68,7 @@ const photos = album.data.photos.map((photo) => ({
     <TaggedWritingSection
         tags={[...pageWritingTags.albums, ...album.data.tags]}
         heading="Related Writing"
-        intro="Published writing with matching album or photography tags will show up here."
+        intro="Related writing will show up here."
         emptyText="No related album writing has been published yet."
     />
 

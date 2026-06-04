@@ -10,7 +10,6 @@ interface Props {
     href?: string;
     meta?: string;
     image?: CardImage;
-    tags?: string[];
     variant?: "default" | "compact" | "media";
     className?: string;
 }
@@ -21,13 +20,12 @@ const {
     href,
     meta,
     image,
-    tags = [],
     variant = "default",
     className = "",
 } = Astro.props;
 
 const classes = ["ui-card", `ui-card-${variant}`, { "ui-card-link": Boolean(href) }, className];
-const hasBody = title || description || meta || tags.length > 0 || Astro.slots.has("default");
+const hasBody = title || description || meta || Astro.slots.has("default");
 ---
 
 {
@@ -42,14 +40,6 @@ const hasBody = title || description || meta || tags.length > 0 || Astro.slots.h
                         {title && <h3>{title}</h3>}
                         {description && <p>{description}</p>}
                         <slot />
-
-                        {
-                            tags.length > 0 && (
-                                <div class="tag-list">
-                                    {tags.map((tag) => <span>{tag}</span>)}
-                                </div>
-                            )
-                        }
                     </div>
                 )
             }
@@ -65,14 +55,6 @@ const hasBody = title || description || meta || tags.length > 0 || Astro.slots.h
                         {title && <h3>{title}</h3>}
                         {description && <p>{description}</p>}
                         <slot />
-
-                        {
-                            tags.length > 0 && (
-                                <div class="tag-list">
-                                    {tags.map((tag) => <span>{tag}</span>)}
-                                </div>
-                            )
-                        }
                     </div>
                 )
             }

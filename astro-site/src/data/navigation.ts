@@ -5,7 +5,7 @@ export const navGroups = [
             { label: "About", href: "/about/" },
             { label: "Resume / CV", href: "/resume/" },
             { label: "Links", href: "/links/" },
-            { label: "Writing", href: "/writing/" },
+            { label: "The Rambling Journal", href: "/writing/" },
             { label: "Gaming Profiles", href: "/gaming/" },
         ],
     },

@@ -5,32 +5,41 @@ import CardGrid from "../../components/CardGrid.astro";
 import ContentSection from "../../components/ContentSection.astro";
 import { navGroups } from "../../data/navigation";
 
+const postDateFormatter = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+});
+
 const posts = (await getCollection("writing", ({ data }) => !data.draft))
     .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-    .map((post) => ({
-        title: post.data.title,
-        description: post.data.description,
-        href: `/writing/${post.id}/`,
-        meta: new Intl.DateTimeFormat("en-GB", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-        }).format(post.data.pubDate),
-        image: post.data.heroImage,
-        tags: post.data.tags,
-    }));
+    .map((post) => {
+        const dateLabel = postDateFormatter.format(post.data.pubDate);
+        const seriesLabel = post.data.series
+            ? `${post.data.series}${post.data.seriesOrder ? `, part ${post.data.seriesOrder}` : ""}`
+            : undefined;
+
+        return {
+            title: post.data.title,
+            description: post.data.description,
+            href: `/writing/${post.id}/`,
+            meta: seriesLabel ? `${dateLabel} - ${seriesLabel}` : dateLabel,
+            image: post.data.heroImage,
+            tags: post.data.tags,
+        };
+    });
 ---
 
 <Layout
-    title="Writing"
-    pageTitle="Writing"
-    eyebrow="Notes"
-    description="Notes, project logs, and writing from Børilden Studio."
-    intro="A place for project logs, photography reflections, homelab notes, and anything that wants more room than a card."
+    title="The Rambling Journal"
+    pageTitle={`Welcome to\nThe Rambling Journal`}
+    eyebrow=""
+    description="Personal writing, informal style, not overly polished, wide array of topics"
+    intro="This is where I write about whatever happens to be occupying my brain at the moment. The goal isn't to be a great writer or an influencer. It's simply to have a place to write about things as they happen, complain a little along the way, and maybe learn something from looking back on it later."
     canonicalPath="/writing/"
     currentPath="/writing/"
     navGroups={navGroups}>
-    <ContentSection heading="All Published Posts">
+    <ContentSection heading="All my rambling so far">
         <CardGrid
             items={posts}
             variant="link"

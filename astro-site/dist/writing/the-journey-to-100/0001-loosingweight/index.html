@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Trying to lose weight really sucks | Børilden Studio</title><meta name="description" content="Since the start of May I've been trying to drop a few pounds/kgs, whatever, and man it fucking sucks."><link rel="canonical" href="https://borildenstudio.no/writing/the-journey-to-100/0001-loosingweight/"><link rel="icon" type="image/png" href="/assets/images/logo.png"><meta property="og:title" content="Trying to lose weight really sucks | Børilden Studio"><meta property="og:description" content="Since the start of May I've been trying to drop a few pounds/kgs, whatever, and man it fucking sucks."><meta property="og:url" content="https://borildenstudio.no/writing/the-journey-to-100/0001-loosingweight/"><meta property="og:type" content="website"><meta property="og:site_name" content="Børilden Studio"><meta property="og:image" content="https://borildenstudio.no/assets/images/logo.png"><link rel="stylesheet" href="/assets/css/styles.css"><link rel="stylesheet" href="/assets/css/page.css"><style>.skip-link{position:fixed;top:1rem;left:1rem;z-index:1001;padding:.65rem .9rem;border-radius:999px;background:var(--card-bg);color:var(--text);box-shadow:var(--shadow);transform:translateY(-140%)}.skip-link:focus{transform:translateY(0)}.page-hero-single{grid-template-columns:minmax(0,1fr)}.content-prose{max-width:780px}.content-prose :where(h2,h3){margin-top:2rem}.content-prose :where(p,ul,ol,blockquote,pre){margin-bottom:1.2rem}.content-prose :where(ul,ol){padding-left:1.3rem;opacity:.85}.content-prose img{display:block;width:100%;height:auto;margin:1.5rem 0;border-radius:var(--radius);box-shadow:var(--shadow)}.content-prose blockquote{padding:1rem 1.25rem;border-left:4px solid var(--accent);border-radius:var(--radius);background:#48bfb814}.content-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}.empty-state{padding:1.5rem;border-radius:var(--radius);background:#48bfb814;color:var(--text)}.template-note{margin-top:1rem;opacity:.65;font-size:.9rem}@media(max-width:700px){.theme-toggle{top:auto;right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom));width:44px;height:44px}}
+</style></head> <body class> <a class="skip-link" href="#content">Skip to content</a> <button type="button" class="theme-toggle" id="toggleTheme" title="Switch to light mode" aria-label="Switch to light mode">
+🌓
+</button> <div class="container page-shell"> <header class="site-header"> <a class="brand-link" href="/" aria-label="Børilden Studio home"> <img id="brandLogo" src="/assets/images/logo_white_text.png" data-dark-src="/assets/images/logo_white_text.png" data-light-src="/assets/images/logo.png" alt="Børilden Studio" width="170" height="170" decoding="async"> </a> <button type="button" class="nav-toggle" id="siteNavToggle" aria-controls="site-navigation" aria-expanded="false" aria-label="Open menu"> <span class="nav-toggle-line"></span> <span class="nav-toggle-line"></span> <span class="nav-toggle-line"></span> </button> <nav class="studio-nav" id="site-navigation" aria-label="Site navigation"> <details> <summary>Who Am I?</summary> <div class="studio-nav-menu"> <a href="/about/"> About </a><a href="/resume/"> Resume / CV </a><a href="/links/"> Links </a><a href="/writing/" aria-current="page"> The Rambling Journal </a><a href="/gaming/"> Gaming Profiles </a> </div> </details><details> <summary>Studio Work</summary> <div class="studio-nav-menu"> <a href="/journey/"> Photography Journey </a><a href="/portfolio/"> Portfolio </a><a href="/albums/"> Albums </a> </div> </details><details> <summary>Homelab</summary> <div class="studio-nav-menu"> <a href="/tools/"> Tools </a><a href="/infrastructure/"> Current Setup </a> </div> </details> </nav> </header> <section class="page-hero" aria-labelledby="page-title"> <div> <p class="page-kicker">Writing</p> <h1 id="page-title">Trying to lose weight really sucks</h1> <p>Since the start of May I&#39;ve been trying to drop a few pounds/kgs, whatever, and man it fucking sucks.</p>  </div>  </section> <main id="content"> <div class="reading-progress" data-reading-progress data-target-selector=".content-prose" aria-hidden="true"> <span class="reading-progress-bar"></span> </div> <script>
+    document.querySelectorAll("[data-reading-progress]").forEach((progress) => {
+        if (progress.dataset.progressReady === "true") {
+            return;
+        }
+
+        progress.dataset.progressReady = "true";
+
+        const bar = progress.querySelector(".reading-progress-bar");
+        const targetSelector = progress.dataset.targetSelector || ".content-prose";
+        const target = document.querySelector(targetSelector);
+
+        if (!bar || !target) {
+            progress.hidden = true;
+            return;
+        }
+
+        let ticking = false;
+
+        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+        const updateProgress = () => {
+            const targetTop = window.scrollY + target.getBoundingClientRect().top;
+            const targetHeight = target.scrollHeight;
+            const scrollEnd = targetTop + targetHeight - window.innerHeight;
+            const scrollRange = Math.max(scrollEnd - targetTop, 1);
+            const value = clamp((window.scrollY - targetTop) / scrollRange, 0, 1);
+
+            bar.style.transform = `scaleX(${value})`;
+            ticking = false;
+        };
+
+        const requestUpdate = () => {
+            if (ticking) {
+                return;
+            }
+
+            ticking = true;
+            window.requestAnimationFrame(updateProgress);
+        };
+
+        requestUpdate();
+        window.addEventListener("scroll", requestUpdate, { passive: true });
+        window.addEventListener("resize", requestUpdate);
+    });
+</script> <article class="content-prose"> <div class="content-meta"> <span class="card-meta">4 June 2026</span> <span class="card-meta">Part 1 of The Journey to 100 kg</span> </div> <h2 id="man-trying-to-lose-weight-really-sucks">Man, trying to lose weight really sucks</h2>
+<p>Let’s start off easy since this is the first post of what I’d like to be a series documenting my weight loss journey (or basically somewhere to complain).</p>
+<p>I’m 25 years old and, by definition, Class I obese. While I stand fairly tall at 190 cm, I weigh a whopping 123 kg as of today, June 4, 2026. “Class I obese” is a wonderful label, isn’t it? At least I’m not in Class III, but I digress.</p>
+<p>I started my current weight loss project on May 1st at 129.9 kg, right after what was an epic vacation with my best pal Isak in Dubrovnik, Croatia. Totally unrelated, but going on my first proper grown-up vacation where I could drink all day and still enjoy the culture, the beach, and the sun was genuinely awesome. I should also mention that Isak is a pretty handsome lad. I’ll toss in a photo below from one of our beach days.</p>
+<p><img src="/assets/images/writing/2026-06-04-IMG_3805.jpg" alt="Isak modeling on the beach">
+<em>Figure 1. My annoyingly photogenic friend Isak making beach fitness look effortless.</em></p>
+<p>To state the obvious, if you looked at the picture above, my good lad is a pretty fit and lean dude. While we were on vacation, he expressed some genuine concern for my overall health. Psychologically, I’ve actually been doing much better lately thanks to the great people I’ve befriended down south. Physically, though, my weight wasn’t looking too good. I was sitting around 129 kg at the time. When I moved for my new job, I had this idea of “new place, new job, new Ben.” I managed to drop down to 124 kg in November, but that’s where things stalled. After that, I climbed to my highest recorded weight of 132.4 kg—which I still maintain was partly because my bathroom scale was broken.</p>
+<p>Seeing that number was not fun.</p>
+<p>Over the next couple of months, I got back down to around 125 kg, but with more free time and more alcohol, I eventually climbed back up to 129.9 kg. That was where I was during the vacation.</p>
+<p>During the trip, Isak challenged me to get down to 124 kg before the festival we’re attending this summer. I accepted and immediately threw a challenge back at him. He’s a really smart dude, but man does he work too much. I told him to work at least two fewer hours per week so he could actually make it to padel practice.</p>
+<p>And so the challenge began.</p>
+<p>My strategy at first was pretty loose. By that, I mean I basically tried to walk the weight off. Walking helps, but the sad truth is that food is what kills me. Whenever I start working out, walking more, or climbing, I just get hungrier. Being active makes me want to eat way more than I actually need.</p>
+<p>The annoying part is that I already knew this. I’ve tried losing weight many times before. This time, though, I think I actually wanted that magic word that the doctors, friends, and even worse, influencers say: a <em>lifestyle change</em>.</p>
+<p>The problem is that I don’t think/believe a lifestyle change is really possible while you’re actively losing weight. As long as you’re eating less than your body wants, you’re going to be hungry. And being hungry is a lot easier to accept if you going to eat food that you genuinely enjoy. The idea was simple: same food, smaller portions.</p>
+<p>I was hoping the magical <strong>6–8 week</strong> period people always talk about would kick in. After enough time, maybe my stomach would get used to smaller meals and my body would stop demanding so much food. Maybe I’d spend less mental energy thinking about not eating. Big dreams I know xD.</p>
+<p>One strategy that has helped quite a bit is simply not having food available. As my dad, Mr. Lars, always says:</p>
+<blockquote>
+<p>“It’s a lot easier to walk past it in the grocery store than in the kitchen.”</p>
+</blockquote>
+<p>Man, does that ring true these days.</p>
+<p>As for the whole lifestyle-change thing, I still think that if I successfully lose weight, I’ll naturally start enjoying the healthier habits that come with it. I remember being around 100 kg back in late 2018 and early 2019, and being healthy felt a lot easier.</p>
+<p>Otherwise, I think that is it for now, I’m going to add one last photo / figure which is from Garmin and my current progress. Untill next time Cy@!
+<img src="/assets/images/writing/2026-06-04-IMG_6764.PNG" alt="May Weight Diagram">
+<em>Figure 1. Garmin Index 2 Weight recording for most of May</em></p> </article> <section class="page-section" aria-labelledby="related-posts"> <h2 id="related-posts">Related Posts</h2> <p class="section-intro">Other related writing will show up here.</p> <p class="empty-state">No related posts have been published yet.</p> </section> <nav class="page-footer-nav" aria-label="Related pages"> <a class="button-link button-link-secondary" href="/writing/"> Back to Writing </a> </nav>  </main> <footer class="footer"> <p>Ben Børilden</p> <p> <a href="mailto:post@borildenstudio.no">
+post@borildenstudio.no
+</a> </p> <p>© <span id="year">2026</span> Børilden Studio</p>   </footer> </div> <script>
+            const root = document.documentElement;
+
+            const yearElement = document.getElementById("year");
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+
+            const studioNav = document.getElementById("site-navigation");
+            const navToggle = document.getElementById("siteNavToggle");
+            const navDetails = Array.from(document.querySelectorAll(".studio-nav details"));
+
+            const closeAllNavDetails = () => {
+                navDetails.forEach((detail) => {
+                    detail.open = false;
+                });
+            };
+
+            const setMobileNavOpen = (isOpen) => {
+                if (!navToggle || !studioNav) {
+                    return;
+                }
+
+                document.body.classList.toggle("nav-is-open", isOpen);
+                navToggle.setAttribute("aria-expanded", String(isOpen));
+                navToggle.setAttribute(
+                    "aria-label",
+                    isOpen ? "Close menu" : "Open menu",
+                );
+
+                if (!isOpen) {
+                    closeAllNavDetails();
+                }
+            };
+
+            if (navToggle && studioNav) {
+                navToggle.addEventListener("click", () => {
+                    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+                    setMobileNavOpen(!isOpen);
+                });
+
+                studioNav.addEventListener("click", (event) => {
+                    const clickedLink =
+                        event.target instanceof Element
+                        && event.target.closest("a");
+
+                    if (clickedLink) {
+                        setMobileNavOpen(false);
+                    }
+                });
+            }
+
+            if (navDetails.length > 0 || navToggle) {
+                document.addEventListener("click", (event) => {
+                    const clickedInsideNav =
+                        event.target instanceof Element
+                        && event.target.closest(".studio-nav");
+
+                    const clickedToggle =
+                        event.target instanceof Element
+                        && event.target.closest("#siteNavToggle");
+
+                    if (!clickedInsideNav && !clickedToggle) {
+                        closeAllNavDetails();
+                        setMobileNavOpen(false);
+                    }
+                });
+
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape") {
+                        closeAllNavDetails();
+                        setMobileNavOpen(false);
+                    }
+                });
+
+                const desktopNavQuery = window.matchMedia("(min-width: 701px)");
+
+                desktopNavQuery.addEventListener("change", (event) => {
+                    if (event.matches) {
+                        setMobileNavOpen(false);
+                    }
+                });
+            }
+
+            const toggleTheme = document.getElementById("toggleTheme");
+            const brandLogo = document.getElementById("brandLogo");
+
+            const getStoredTheme = () => {
+                try {
+                    return localStorage.getItem("theme");
+                } catch {
+                    return null;
+                }
+            };
+
+            const storeTheme = (theme) => {
+                try {
+                    localStorage.setItem("theme", theme);
+                } catch {
+                    // Keep the toggle working when localStorage is unavailable.
+                }
+            };
+
+            const updateThemeControl = (theme) => {
+                if (!toggleTheme) {
+                    return;
+                }
+
+                const label =
+                    theme === "dark"
+                        ? "Switch to light mode"
+                        : "Switch to dark mode";
+
+                toggleTheme.setAttribute("aria-label", label);
+                toggleTheme.setAttribute("title", label);
+            };
+
+            const updateBrandLogo = (theme) => {
+                if (!brandLogo) {
+                    return;
+                }
+
+                const nextLogo =
+                    theme === "dark"
+                        ? brandLogo.dataset.darkSrc
+                        : brandLogo.dataset.lightSrc;
+
+                if (nextLogo && brandLogo.getAttribute("src") !== nextLogo) {
+                    brandLogo.setAttribute("src", nextLogo);
+                }
+            };
+
+            const setTheme = (theme) => {
+                root.setAttribute("data-theme", theme);
+                updateThemeControl(theme);
+                updateBrandLogo(theme);
+            };
+
+            const prefersLightTheme =
+                window.matchMedia
+                && window.matchMedia("(prefers-color-scheme: light)").matches;
+
+            const storedTheme = getStoredTheme();
+
+            const initialTheme =
+                storedTheme === "dark" || storedTheme === "light"
+                    ? storedTheme
+                    : (prefersLightTheme ? "light" : "dark");
+
+            setTheme(initialTheme);
+
+            if (toggleTheme) {
+                toggleTheme.addEventListener("click", () => {
+                    const currentTheme = root.getAttribute("data-theme");
+
+                    const nextTheme =
+                        currentTheme === "dark"
+                            ? "light"
+                            : "dark";
+
+                    setTheme(nextTheme);
+                    storeTheme(nextTheme);
+                });
+            }
+        </script> </body> </html>

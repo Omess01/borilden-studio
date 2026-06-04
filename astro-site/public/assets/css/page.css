@@ -241,6 +241,7 @@ body {
     font-size: 3.4rem;
     line-height: 1.08;
     letter-spacing: 0;
+    white-space: pre-line;
 }
 
 .page-hero p {
@@ -562,26 +563,6 @@ body {
     font-size: 0.85rem;
     font-weight: 500;
     text-transform: uppercase;
-}
-
-.tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-
-    margin-top: 1rem;
-}
-
-.tag-list span {
-    padding: 0.35rem 0.55rem;
-
-    border-radius: 999px;
-
-    background: rgba(72, 191, 184, 0.1);
-
-    color: var(--text);
-
-    font-size: 0.8rem;
 }
 
 .album-card img,
@@ -955,8 +936,7 @@ body {
     line-height: 1.75;
 }
 
-.ui-badge,
-.ui-tag {
+.ui-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -983,41 +963,26 @@ body {
     text-transform: uppercase;
 }
 
-.ui-tag {
-    min-height: 32px;
-    padding: 0.4rem 0.7rem;
-
-    border-radius: 999px;
-
-    font-size: 0.9rem;
-}
-
 .ui-badge-default,
-.ui-tag-default,
-.ui-badge-muted,
-.ui-tag-muted {
+.ui-badge-muted {
     background: rgba(72, 191, 184, 0.1);
 }
 
-.ui-badge-accent,
-.ui-tag-accent {
+.ui-badge-accent {
     background: rgba(72, 191, 184, 0.16);
     color: var(--accent-text);
 }
 
-.ui-badge-highlight,
-.ui-tag-highlight {
+.ui-badge-highlight {
     background: rgba(187, 217, 118, 0.16);
     color: var(--highlight);
 }
 
-.ui-badge-secondary,
-.ui-tag-secondary {
+.ui-badge-secondary {
     background: rgba(112, 79, 159, 0.18);
 }
 
-a.ui-badge:hover,
-a.ui-tag:hover {
+a.ui-badge:hover {
     background: var(--hover);
     color: var(--text);
 }

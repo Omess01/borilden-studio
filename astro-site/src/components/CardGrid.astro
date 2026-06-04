@@ -15,14 +15,12 @@ interface Props {
     items: CardItem[];
     variant?: "feature" | "link" | "album" | "gallery" | "timeline" | "stat";
     emptyText?: string;
-    showTags?: boolean;
 }
 
 const {
     items,
     variant = "feature",
     emptyText = "Nothing has been added here yet.",
-    showTags = false,
 } = Astro.props;
 
 const gridClass = `${variant}-grid`;
@@ -51,14 +49,6 @@ const cardClass = `${variant}-card`;
                                 {item.meta && <span class="card-meta">{item.meta}</span>}
                                 <h3>{item.title}</h3>
                                 {item.description && <p>{item.description}</p>}
-
-                                {
-                                    showTags && item.tags && item.tags.length > 0 && (
-                                        <div class="tag-list">
-                                            {item.tags.map((tag) => <span>{tag}</span>)}
-                                        </div>
-                                    )
-                                }
                             </div>
                         </a>
                     ) : (
@@ -78,14 +68,6 @@ const cardClass = `${variant}-card`;
                                 {item.meta && <span class="card-meta">{item.meta}</span>}
                                 <h3>{item.title}</h3>
                                 {item.description && <p>{item.description}</p>}
-
-                                {
-                                    showTags && item.tags && item.tags.length > 0 && (
-                                        <div class="tag-list">
-                                            {item.tags.map((tag) => <span>{tag}</span>)}
-                                        </div>
-                                    )
-                                }
                             </div>
                         </article>
                     )

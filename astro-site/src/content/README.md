@@ -21,6 +21,15 @@ Optional frontmatter:
 - `draft`
 - `tags`
 - `heroImage`
+- `series`
+- `seriesOrder`
+
+Series posts can live in folders inside `content/writing/`. For example:
+
+`content/writing/the-journey-to-100/0001-loosingweight.md`
+
+Use the same `series` value on every post in a series and set
+`seriesOrder` to control the order.
 
 ## Projects
 

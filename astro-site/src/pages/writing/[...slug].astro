@@ -1,0 +1,153 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../Layout.astro";
+import CardGrid from "../../components/CardGrid.astro";
+import ContentSection from "../../components/ContentSection.astro";
+import PageFooterNav from "../../components/PageFooterNav.astro";
+import ReadingProgress from "../../components/ReadingProgress.astro";
+import TaggedWritingSection from "../../components/TaggedWritingSection.astro";
+import { navGroups } from "../../data/navigation";
+
+const postUrl = (id: string) => `/writing/${id}/`;
+
+export async function getStaticPaths() {
+    const posts = await getCollection("writing", ({ data }) => !data.draft);
+
+    return posts.map((post) => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const publishedPosts = await getCollection("writing", ({ data }) => !data.draft);
+
+const formattedDate = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+}).format(post.data.pubDate);
+
+const getSeriesOrder = (seriesPost: (typeof publishedPosts)[number]) =>
+    seriesPost.data.seriesOrder ?? Number.MAX_SAFE_INTEGER;
+
+const seriesPosts = post.data.series
+    ? publishedPosts
+          .filter((seriesPost) => seriesPost.data.series === post.data.series)
+          .sort((a, b) => {
+              const orderDifference = getSeriesOrder(a) - getSeriesOrder(b);
+
+              if (orderDifference !== 0) {
+                  return orderDifference;
+              }
+
+              const dateDifference = a.data.pubDate.getTime() - b.data.pubDate.getTime();
+
+              if (dateDifference !== 0) {
+                  return dateDifference;
+              }
+
+              return a.data.title.localeCompare(b.data.title);
+          })
+    : [];
+
+const currentSeriesIndex = seriesPosts.findIndex((seriesPost) => seriesPost.id === post.id);
+const seriesPosition =
+    post.data.seriesOrder ?? (currentSeriesIndex >= 0 ? currentSeriesIndex + 1 : undefined);
+const seriesMeta =
+    post.data.series && seriesPosition
+        ? `Part ${seriesPosition} of ${post.data.series}`
+        : post.data.series;
+const seriesItems = seriesPosts.map((seriesPost, index) => ({
+    title: seriesPost.data.title,
+    description: seriesPost.data.description,
+    href: postUrl(seriesPost.id),
+    meta: `Part ${seriesPost.data.seriesOrder ?? index + 1}`,
+    image: seriesPost.data.heroImage,
+}));
+const previousSeriesPost =
+    currentSeriesIndex > 0 ? seriesPosts[currentSeriesIndex - 1] : undefined;
+const nextSeriesPost =
+    currentSeriesIndex >= 0 && currentSeriesIndex < seriesPosts.length - 1
+        ? seriesPosts[currentSeriesIndex + 1]
+        : undefined;
+const footerLinks = [
+    ...(previousSeriesPost
+        ? [{ label: "Previous in Series", href: postUrl(previousSeriesPost.id) }]
+        : []),
+    { label: "Back to Writing", href: "/writing/" },
+    ...(nextSeriesPost ? [{ label: "Next in Series", href: postUrl(nextSeriesPost.id) }] : []),
+];
+---
+
+<Layout
+    title={post.data.title}
+    pageTitle={post.data.title}
+    eyebrow="Writing"
+    description={post.data.description}
+    intro={post.data.description}
+    canonicalPath={`/writing/${post.id}/`}
+    currentPath="/writing/"
+    navGroups={navGroups}>
+    {
+        post.data.heroImage && (
+            <aside slot="heroPanel" class="hero-panel">
+                <img
+                    src={post.data.heroImage.src}
+                    alt={post.data.heroImage.alt}
+                    loading="eager"
+                    decoding="async"
+                />
+                {
+                    post.data.heroImage.caption && (
+                        <div class="hero-panel-body">
+                            <p>{post.data.heroImage.caption}</p>
+                        </div>
+                    )
+                }
+            </aside>
+        )
+    }
+
+    <ReadingProgress targetSelector=".content-prose" />
+
+    <article class="content-prose">
+        <div class="content-meta">
+            <span class="card-meta">{formattedDate}</span>
+            {seriesMeta && <span class="card-meta">{seriesMeta}</span>}
+        </div>
+
+        <Content />
+    </article>
+
+    {
+        post.data.series && seriesPosts.length > 1 && (
+            <ContentSection
+                heading={post.data.series}
+                intro={
+                    seriesPosition
+                        ? `Part ${seriesPosition} in this series.`
+                        : "More writing in this series."
+                }>
+                <CardGrid
+                    items={seriesItems}
+                    variant="link"
+                    emptyText="No other posts have been published in this series yet."
+                />
+            </ContentSection>
+        )
+    }
+
+    <TaggedWritingSection
+        tags={post.data.tags}
+        heading="Related Posts"
+        intro="Other related writing will show up here."
+        emptyText="No related posts have been published yet."
+        excludeId={post.id}
+        limit={3}
+        showWhenEmpty={post.data.tags.length > 0}
+    />
+
+    <PageFooterNav links={footerLinks} />
+</Layout>

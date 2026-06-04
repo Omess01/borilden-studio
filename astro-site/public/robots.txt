@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://borildenstudio.no/sitemap-index.xml

@@ -18,6 +18,8 @@ const writing = defineCollection({
         draft: z.boolean().default(false),
         tags: z.array(z.string()).default([]),
         heroImage: imageSchema.optional(),
+        series: z.string().optional(),
+        seriesOrder: z.coerce.number().int().positive().optional(),
     }),
 });
 
