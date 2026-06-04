@@ -162,7 +162,22 @@ const hasActions = Astro.slots.has("actions");
                             />
                         </a>
 
-                        <nav class="studio-nav" aria-label="Site navigation">
+                        <button
+                            type="button"
+                            class="nav-toggle"
+                            id="siteNavToggle"
+                            aria-controls="site-navigation"
+                            aria-expanded="false"
+                            aria-label="Open menu">
+                            <span class="nav-toggle-line"></span>
+                            <span class="nav-toggle-line"></span>
+                            <span class="nav-toggle-line"></span>
+                        </button>
+
+                        <nav
+                            class="studio-nav"
+                            id="site-navigation"
+                            aria-label="Site navigation">
                             {
                                 navGroups.map((group) => (
                                     <details>
@@ -256,28 +271,78 @@ const hasActions = Astro.slots.has("actions");
                 yearElement.textContent = new Date().getFullYear();
             }
 
+            const studioNav = document.getElementById("site-navigation");
+            const navToggle = document.getElementById("siteNavToggle");
             const navDetails = Array.from(document.querySelectorAll(".studio-nav details"));
 
-            if (navDetails.length > 0) {
-                const closeAllNavDetails = () => {
-                    navDetails.forEach((detail) => {
-                        detail.open = false;
-                    });
-                };
+            const closeAllNavDetails = () => {
+                navDetails.forEach((detail) => {
+                    detail.open = false;
+                });
+            };
 
+            const setMobileNavOpen = (isOpen) => {
+                if (!navToggle || !studioNav) {
+                    return;
+                }
+
+                document.body.classList.toggle("nav-is-open", isOpen);
+                navToggle.setAttribute("aria-expanded", String(isOpen));
+                navToggle.setAttribute(
+                    "aria-label",
+                    isOpen ? "Close menu" : "Open menu",
+                );
+
+                if (!isOpen) {
+                    closeAllNavDetails();
+                }
+            };
+
+            if (navToggle && studioNav) {
+                navToggle.addEventListener("click", () => {
+                    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+                    setMobileNavOpen(!isOpen);
+                });
+
+                studioNav.addEventListener("click", (event) => {
+                    const clickedLink =
+                        event.target instanceof Element
+                        && event.target.closest("a");
+
+                    if (clickedLink) {
+                        setMobileNavOpen(false);
+                    }
+                });
+            }
+
+            if (navDetails.length > 0 || navToggle) {
                 document.addEventListener("click", (event) => {
                     const clickedInsideNav =
                         event.target instanceof Element
                         && event.target.closest(".studio-nav");
 
-                    if (!clickedInsideNav) {
+                    const clickedToggle =
+                        event.target instanceof Element
+                        && event.target.closest("#siteNavToggle");
+
+                    if (!clickedInsideNav && !clickedToggle) {
                         closeAllNavDetails();
+                        setMobileNavOpen(false);
                     }
                 });
 
                 document.addEventListener("keydown", (event) => {
                     if (event.key === "Escape") {
                         closeAllNavDetails();
+                        setMobileNavOpen(false);
+                    }
+                });
+
+                const desktopNavQuery = window.matchMedia("(min-width: 701px)");
+
+                desktopNavQuery.addEventListener("change", (event) => {
+                    if (event.matches) {
+                        setMobileNavOpen(false);
                     }
                 });
             }
@@ -446,6 +511,10 @@ const hasActions = Astro.slots.has("actions");
 
             @media (max-width: 700px) {
                 .theme-toggle {
+                    top: auto;
+                    right: max(1rem, env(safe-area-inset-right));
+                    bottom: max(1rem, env(safe-area-inset-bottom));
+
                     width: 44px;
                     height: 44px;
                 }
